@@ -246,6 +246,7 @@ model InspectionCommittee {
   created_by  Int
   valid_until DateTime
   InspectionReport InspectionReport[]
+  status      Status
 }
 
 model Supplier {
@@ -255,7 +256,7 @@ model Supplier {
   phone          String
   email          String @unique
   address        String
-  status         SupplierStatus
+  status         Status
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 }
@@ -267,6 +268,7 @@ model GoodsReturn {
   reason     String
   supplier_id Int
   GoodReceipt GoodReceipt @relation(fields: [good_receipt_id], references: [id])
+  status      Status
 }
 
 model InventoryItem {
@@ -289,13 +291,14 @@ model InventoryItem {
   Disposal           Disposal[]
   InventoryUpdate    InventoryUpdate[]
   StockTakeDetail    StockTakeDetail[]
+  status             Status
 }
 
 model StockLocation {
   id          Int       @id @default(autoincrement())
   name        String
   type        LocationType
-  status      LocationStatus
+  status      Status
   InventoryMovementFrom InventoryMovement[] @relation("FromLocation")
   InventoryMovementTo   InventoryMovement[] @relation("ToLocation")
 }
@@ -308,6 +311,7 @@ model InventoryMovement {
   quantity        Int
   movement_date   DateTime
   movement_type   MovementType
+  status          Status
   InventoryItem  InventoryItem @relation(fields: [inventory_item_id], references: [id])
   FromLocation    StockLocation @relation("FromLocation", fields: [from_location_id], references: [id])
   ToLocation      StockLocation @relation("ToLocation", fields: [to_location_id], references: [id])
@@ -319,6 +323,7 @@ model ApprovedPriceList {
   supplier_id   Int
   price         Float
   effective_date DateTime
+  status         Status
   InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
@@ -328,6 +333,7 @@ model StockValuation {
   valuation_method    ValuationMethod
   last_valuation_date DateTime
   valuation_amount    Float
+  status              Status
   InventoryItem      InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
@@ -338,6 +344,7 @@ model Disposal {
   reason         String
   approval_status ApprovalStatus
   disposal_code  String
+  status         Status
   InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
@@ -348,6 +355,7 @@ model InventoryUpdate {
   update_type    UpdateType
   updated_by     Int
   update_date    DateTime
+  status         Status
   InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
@@ -369,6 +377,7 @@ model StockTakeDetail {
   physical_quantity Int
   variance       Int
   comments       String?
+  status         Status
   StockTakes     StockTakes @relation(fields: [stock_take_id], references: [id])
   InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
@@ -377,6 +386,7 @@ model StockTakeCommittee {
   id           Int       @id @default(autoincrement())
   stock_take_id Int
   member_id    Int
+  status       Status
   StockTakes   StockTakes @relation(fields: [stock_take_id], references: [id])
 }
 
@@ -396,11 +406,6 @@ enum LocationType {
   Store
   StockRoom
   Bin
-}
-
-enum LocationStatus {
-  Active
-  Inactive
 }
 
 enum MovementType {
@@ -435,7 +440,7 @@ enum StockTakeStatus {
   Completed
   Cancelled
 }
-enum SupplierStatus {
+enum Status {
   Active
   Inactive
 }
