@@ -1,0 +1,372 @@
+
+.header-container{
+    border-bottom: 1px solid var(--border-thin)!important;
+    max-width: 120rem;
+    margin: 0 auto;
+}
+.headerShortWrap{
+    max-width: 82rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+.header-full-wrap{
+    padding: 0 60px;
+}
+.topHeadWrapper{
+    padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-thin);
+}
+.topSearchWrap{
+    display: flex;
+    align-items: center;
+}
+.user-content-inner{
+    cursor: pointer!important;
+}
+.topSearchBar{
+    display: flex;
+    align-items: center;
+    margin-right: 56px;
+}
+.topSearchBar input{
+    padding: 16px 12px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 19.6px;
+    width: 315px;
+    color: var(--text-secondary);
+    border-radius: 8px 0px 0px 8px;
+    border: 1px solid var(--border-secondary);
+}
+.topSearchBar input::placeholder{
+    color: var(--text-placeholder);
+}
+.topSearchBarBtn{
+    border-radius: 0px 8px 8px 0px;
+    width: 56px;
+    padding: 15px;
+    background: var(--bg-primary);
+}
+.logoWrap button{
+    background: none;
+    padding: 0;
+}
+.bottom-head-wrapper{
+    padding-top: 24px;
+    text-align: center;
+}
+.bottom-head-wrap ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    justify-content: center;
+    padding: 0;
+}
+.bottom-head-wrap ul li{
+    margin-right: 32px;
+}
+.bottom-head-wrap ul li:last-child{
+    margin-right: 0;
+}
+.bottom-head-wrap ul li a{
+    background: none;
+    padding: 0;
+    color: var(--text-secondary);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0.18px;
+}
+.mobile-menu-wrap{
+    display: none;
+}
+.user-content-wrap .avater-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.user-content-inner a{
+    color: var(--text-primary);
+}
+.user-hover-content-inner{
+    border-radius: 0 0 20px  20px;
+    border: 1px solid var(--border-thin);
+    background: var(--brand-primary);
+    box-shadow: 0px 4px 34px 0px rgba(0, 0, 0, 0.05);
+    padding: 16px 24px;
+}
+.user-hover-content-inner a{
+    display: flex;
+    padding: 16px 0;
+    transition: 300ms;
+    align-items: center;
+}
+.user-hover-content-inner a img{
+    margin-right: 12px;
+}
+.user-hover-content-inner a:hover{
+    color: var(--bg-primary);
+}
+.user-content-wrap{
+    position: relative;
+}
+.user-content-wrap:hover .user-hover-content{
+    display: block;
+}
+.user-hover-content{
+    position: absolute;
+    top: 6px;
+    right: -32%;
+    width: 171px;
+    display: none;
+    transition: 300ms;
+    z-index: 2000;
+    padding-top: 50px;
+}
+.user-hover-content-inner a img:nth-child(2) {
+    display: none;
+    transition: 300ms;
+}
+
+.user-hover-content-inner a:hover img:nth-child(1) {
+    display: none;
+    transition: 300ms;
+}
+
+.user-hover-content-inner a:hover img:nth-child(2) {
+    display: block;
+    transition: 300ms;
+}
+.bottom-head-wrap ul li a{
+    padding-bottom: 19px;
+    border-bottom: 5px solid transparent;
+    transition: 300ms;
+}
+.bottom-head-wrap ul li a:hover{
+    color: var(--bg-primary);
+    border-bottom: 5px solid var(--bg-primary);
+
+}
+.bottom-head-wrap ul li a.active{
+    color: var(--bg-primary);
+    border-bottom: 5px solid var(--bg-primary);
+}
+.men-dropdown-wrapper{
+    padding: 32px;
+    border-radius: 0px 0px 20px 20px;
+    background: var(--brand-primary);
+    box-shadow: 0px 4px 34px 0px rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 56px;
+    height: auto;
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 47px;
+    transition: 300ms;
+    z-index: 1000;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+.men-dropdown-wrapper .men-dropdown-wrapper-first{
+    width: 60%;
+    text-align: start;
+
+}
+.men-dropdown-wrapper .men-dropdown-wrapper-last{
+    width: 40%;
+    text-align: start;
+}
+.men-dropdown-wrapper h3{
+    margin-bottom: 20px;
+}
+.bottom-head-wrap ul{
+    position: relative;
+}
+.men-dropdown-wrapper .near-item{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px 48px;
+}
+.men-dropdown-wrapper .near-item a{
+    color: var(--bg-primary);
+    border: 0;
+    padding: 0;
+}
+.men-dropdown-wrapper .near-item a:hover{
+    color: var(--bg-primary);
+    border: 0;
+    padding: 0;
+    text-decoration: underline!important;
+}
+.men-dropdown-wrapper-last p{
+    margin-bottom: 24px!important;
+}
+.men-dropdown-wrapper .read-more-assisted a{
+    padding: 0;
+    border: 0;
+    font-size: 14px!important;
+    font-style: normal!important;
+    font-weight: 600!important;
+    line-height: 19px!important;
+    color: var(--bg-primary);
+}
+
+.mobile-menu-top-wrap{
+    display: none;
+}
+.mobile-menu-content{
+    background: var(--brand-primary);
+    position: absolute;
+    top: 68px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 100vh;
+    padding: 16px 0;
+    overflow: auto;
+}
+.bottom-head-wrap a img:nth-child(2) {
+    display: none;
+    transition: 300ms;
+}
+
+.bottom-head-wrap a:hover img:nth-child(1) {
+    display: none;
+    transition: 300ms;
+}
+
+.bottom-head-wrap a:hover img:nth-child(2) {
+    display: block;
+    transition: 300ms;
+}
+.mobile-menu-content ul{
+    list-style: none;
+}
+.mobile-search-top-wrap{
+    display: none;
+}
+.topSearchBar form{
+    display: flex;
+}
+@media only screen and (max-width: 767px){
+    .bottom-head-wrapper,
+    .topSearchBar{
+        display: none;
+    }
+    .mobile-search-top-wrap,
+    .mobile-menu-top-wrap{
+        display: block;
+    }
+    .mobile-menu-btn{
+        background: transparent;
+        transition: 300ms;
+        border-radius: 4px;
+        padding: 5px;
+        margin-left: 16px;
+    }
+    .mobile-menu-btn-close{
+        background: var(--bg-field-selected);
+        transition: 300ms;
+        border-radius: 4px;
+        padding: 5px;
+        margin-left: 16px;
+    }
+    .bottom-head-wrap ul {
+        display: inline-block;
+    }
+    .bottom-head-wrap ul li a:hover {
+        color: var(--text-primary);
+        border-bottom: 0;
+    }
+    .bottom-head-wrap ul li a.active{
+        color: var(--bg-primary);
+        border-bottom: 0;
+    }
+    .topHeadWrapper{
+        border-bottom: 0;
+        padding: 16px 0;
+    }
+    .Brand_logo{
+        width: 100px;
+        height: 31.615px;
+    }
+    .bottom-head-wrap ul li{
+        margin: 0!important;
+    }
+    .bottom-head-wrap ul li a {
+        padding: 16px;
+        border-bottom: 0;
+        color: var(--text-primary);
+    }
+    .men-dropdown-wrapper {
+        padding: 16px;
+        border-radius: 0;
+        background: var(--bg-light);
+        box-shadow: none;
+        display: block;
+        position: unset;
+    }
+    .men-dropdown-wrapper .men-dropdown-wrapper-first {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .men-dropdown-wrapper-first a {
+        font-size: 14px!important;
+    }
+    .men-dropdown-wrapper .near-item {
+        gap: 16px 24px;
+    }
+    .men-dropdown-wrapper h3 {
+        margin-bottom: 12px;
+    }
+    .men-dropdown-wrapper .men-dropdown-wrapper-last {
+        width: 100%;
+    }
+    .men-dropdown-wrapper-last p {
+        margin-bottom: 16px!important;
+    }
+    .mobile-search-top-wrap button{
+        background: none;
+        padding: 0;
+        margin-right: 16px;
+    }
+    .LogInInitialBtn {
+        display: flex;
+        align-items: center;
+        background: transparent;
+        padding: 0;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 22px;
+        letter-spacing: 0.18px;
+        color: var(--text-primary);
+        cursor: pointer;
+    }
+
+    .bottom-head-wrap a img:nth-child(2) {
+        display: none;
+        transition: 10ms;
+    }
+
+    .bottom-head-wrap a:hover img:nth-child(1) {
+        display: block;
+        transition: 10ms;
+    }
+
+    .bottom-head-wrap a:hover img:nth-child(2) {
+        display: none;
+        transition: 10ms;
+    }
+    .header-full-wrap{
+        padding: 0 1rem;
+    }
+}

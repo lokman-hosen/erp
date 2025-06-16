@@ -1,0 +1,128 @@
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { PrismaService } from '../../prisma/prisma.service';
+import * as bcryptjs from 'bcryptjs';
+import { faker } from "@faker-js/faker";
+
+@Injectable()
+export class AdminAdvisorService {
+    constructor(private readonly prismaService: PrismaService) { }
+
+    async assign(advisor_id: number) {
+        const advisor = await this.prismaService.advisor.findFirst({ where: { id: advisor_id } })
+        if (advisor === null) {
+            throw new HttpException("Advisor not valid", HttpStatus.UNAUTHORIZED)
+        }
+        if (advisor.assign_city === null) {
+            throw new HttpException("Please assign a city for this advisor", HttpStatus.UNAUTHORIZED)
+        }
+        const match_user = []
+        const match_partner = []
+        const [users, partners] = [
+            await this.prismaService.user.findMany({
+                where: { advisor_id: null }
+            }),
+            await this.prismaService.partner.findMany({
+                where: { advisor_id: null }
+            })
+        ]
+        users.map(element => {
+            const item = element?.city?.toString().toLowerCase() === advisor?.assign_city?.toString().toLowerCase()
+            if (item) {
+                match_user.push(element?.id)
+            }
+        });
+        partners.map(element => {
+            const item = element?.city?.toString().toLowerCase() === advisor?.assign_city?.toString().toLowerCase()
+            if (item) {
+                match_partner.push(element?.id)
+            }
+        });
+
+        const update_user = await this.updateUser(match_user, advisor?.id)
+        const update_partner = await this.updatePartner(match_partner, advisor?.id)
+
+
+        return { update_partner, update_user, ...advisor }
+    }
+
+    async updateUser(match_user: any, advisor_id: number): Promise<boolean> {
+        return !!(await this.prismaService.user.updateMany({
+            where: { id: { in: match_user } }, data: {
+                advisor_id
+            }
+        }))
+    }
+
+    async updatePartner(match_partner: any, advisor_id: number): Promise<boolean> {
+        return !!(await this.prismaService.partner.updateMany({
+            where: { id: { in: match_partner } }, data: {
+                advisor_id
+            }
+        })
+        )
+    }
+
+    async getPostCodes() {
+        try {
+            const post_codes = []
+            const care_homes_post_codes = await this.prismaService.careHome.findMany({ select: { post_code: true } })
+            const user_post_codes = await this.prismaService.user.findMany({ select: { postal_code: true } })
+            const partner_post_codes = await this.prismaService.partner.findMany({ select: { postal_code: true } })
+            care_homes_post_codes?.map(item => {
+                const find = post_codes?.find(code => item.post_code == code)
+                if (!find) {
+                    post_codes.push(item?.post_code)
+                }
+            })
+
+            user_post_codes?.map(item => {
+                const find = post_codes?.find(code => item.postal_code == code)
+                if (!find) {
+                    post_codes.push(item?.postal_code)
+                }
+            })
+
+            partner_post_codes?.map(item => {
+                const find = post_codes?.find(code => item.postal_code == code)
+                if (!find) {
+                    post_codes.push(item?.postal_code)
+                }
+            })
+            return post_codes
+        } catch (err) {
+            throw new HttpException("Something is error", HttpStatus.BAD_REQUEST)
+        }
+    }
+
+    async getStates() {
+        try {
+            const states = []
+            const care_homes_post_codes = await this.prismaService.careHome.findMany({ select: { state: true } })
+            const user_post_codes = await this.prismaService.user.findMany({ select: { state: true } })
+            const partner_post_codes = await this.prismaService.partner.findMany({ select: { state: true } })
+            care_homes_post_codes?.map(item => {
+                const find = states?.find(code => item.state == code)
+                if (!find) {
+                    states.push(item?.state)
+                }
+            })
+
+            user_post_codes?.map(item => {
+                const find = states?.find(code => item.state == code)
+                if (!find) {
+                    states.push(item?.state)
+                }
+            })
+
+            partner_post_codes?.map(item => {
+                const find = states?.find(code => item.state == code)
+                if (!find) {
+                    states.push(item?.state)
+                }
+            })
+            return states
+        } catch (err) {
+            throw new HttpException("Something is error", HttpStatus.BAD_REQUEST)
+        }
+    }
+}

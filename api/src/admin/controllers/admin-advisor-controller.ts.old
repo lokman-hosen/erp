@@ -1,0 +1,27 @@
+import { Body, Controller, Get, Post, Query } from "@nestjs/common";
+import { res } from "src/common/response.helper";
+import { AdminAdvisorService } from "../services/admin-advisor.service";
+
+@Controller('admin/advisor')
+export class AdminAdvisorController {
+    constructor(private readonly adminAdvisorService: AdminAdvisorService) { }
+
+    @Post('assign')
+    async assign(@Query('advisor_id') id: number) {
+        const response = await this.adminAdvisorService.assign(id)
+        return res.success(response)
+    }
+
+    @Get('post-codes')
+    async postCodes() {
+        const response = await this.adminAdvisorService.getPostCodes()
+        return res.success(response)
+    }
+
+    @Get('states')
+    async states() {
+        const response = await this.adminAdvisorService.getStates()
+        return res.success(response)
+    }
+
+}

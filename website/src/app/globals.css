@@ -1,0 +1,24 @@
+.header__extra:hover {
+  color: white;
+}
+
+.header__extra {
+  font-size: 30px;
+  line-height: 40px;
+}
+
+.ps-block__left {
+  font-size: 30px;
+}
+
+.Toastify__toast--success {
+  background-color: #bdf8cf !important;
+}
+
+.Toastify__toast-body {
+  color: #06af06 !important;
+}
+
+.Toastify__close-button--colored {
+  color: #06af06 !important;
+}

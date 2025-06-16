@@ -1,0 +1,75 @@
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { CareHomeService } from '../services/care-home.service';
+import { res } from 'src/common/response.helper';
+import { CareHomeDto } from '../dtos/care-home.dto';
+
+@Controller('admin/care-home')
+export class CareHomeContoller {
+  constructor(private readonly careHomeService: CareHomeService) { }
+
+  @Post()
+  async createCareHome(@Body() data) {
+    const format = await this.careHomeService.createCareHome(data);
+    const care_homes = await this.careHomeService.create(format);
+    return res.success(care_homes, 200);
+  }
+
+  @Post('set/amenities')
+  async setCareHomeAmenity(@Body() data: any, @Query('care_id') care_home_id: number) {
+    const response = await this.careHomeService.setCareHomeAmenity(data,care_home_id);
+    return res.success(response, 200);
+  }
+  
+  @Post('set/care-type')
+  async setCareHomeCareType(@Body() data: any, @Query('care_id') care_home_id: number) {
+    const response = await this.careHomeService.setCareHomeCareType(data,care_home_id);
+    return res.success(response, 200);
+  }
+
+  @Get('test')
+  async test() {
+    const homes = [];
+    for (let i = 0; i < 30; i++) {
+      const careHome = {
+        name: `Test care home ${i + 1}`,
+        email: `test${i + 1}@care.com`,
+        phone: `+44 123 456 789${i + 1}`,
+        logo: '',
+        short_desc: `Test care home with lorem ipsum ${i + 1
+          } dolor sit amet, consectetur adipiscing elit.`,
+
+        desc: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+        tincidunt, eros quis ultrices ultricies, quam nisl aliquam
+        augue, quis aliquet quam nisl quis nisl. Pellentesque
+        consectetur, augue sit amet ultrices ultricies, nisl diam
+        ultricies felis, ac aliquam ipsum nulla sed nisl. Nulla
+        facilisi. Donec nec nisl quis elit aliquet mollis. Sed.`,
+        street: `Test street ${i + 1}`,
+        post_code: `Test post code ${i + 1}`,
+        state: '',
+        lat: '23.123',
+        lon: '90.123',
+        address: `Test address ${i + 1}`,
+        price_start: '1000',
+        price_end: '5000',
+        website: '',
+        facebook: '',
+        instagram: '',
+        linkedin: '',
+        slug: `test-care-home-${i + 1}`,
+        city_id: 1,
+      };
+      homes.push(careHome);
+    }
+    const care_homes = await this.careHomeService.create(homes);
+    return res.success(care_homes, 200);
+  }
+}

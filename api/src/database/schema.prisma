@@ -1,0 +1,441 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id            Int     @id @default(autoincrement())
+  email         String  @unique
+  password      String
+  phone         String?
+  first_name    String?
+  last_name     String?
+  push_token    String?
+  profile_photo String? @db.VarChar(200)
+  timezone      String? @db.VarChar(20)
+
+  @@map(name: "admin_users")
+}
+
+model AdminPasswordReset {
+  id          Int     @id @default(autoincrement())
+  email       String  @unique @db.VarChar(200)
+  reset_code  String  @db.VarChar(200)
+  reset_token String? @db.VarChar(200)
+
+  @@map(name: "admin_password_resets")
+}
+
+model Attachment {
+  id           Int      @id @default(autoincrement())
+  url          String
+  datetime     DateTime @default(now())
+  user_id      Int?
+  care_home_id Int?
+  city_id      Int?
+  short_order  Int      @default(1)
+
+  @@map(name: "attachments")
+}
+
+model Newsletter {
+  id    Int    @id @default(autoincrement())
+  email String @db.VarChar(200)
+
+  @@map(name: "newsletters")
+}
+
+model OtpVerification {
+  id    Int     @id @default(autoincrement())
+  otp   String
+  email String? @unique @db.VarChar(200)
+  phone String? @db.VarChar(200)
+
+  @@map(name: "otp_verifications")
+}
+
+model Testimonial {
+  id         Int     @id @default(autoincrement())
+  user_name  String  @db.VarChar(200)
+  desc       String?
+  city       String? @db.VarChar(200)
+  image      String? @db.VarChar(200)
+  sort_order Int     @default(1)
+
+  @@map(name: "testimonials")
+}
+
+model Address {
+  id                 Int     @id @default(autoincrement())
+  user_id            Int
+  name               String?
+  email              String?
+  phone              String?
+  alternative_phone  String?
+  address_line_1     String?
+  address_line_2     String?
+  city               String? @db.VarChar(200)
+  postal_cdoe        String? @db.VarChar(200)
+  country            String? @db.VarChar(200)
+  is_billing_address Boolean @default(true)
+  User               User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map(name: "addresses")
+}
+
+model Favorite {
+  id           Int      @id @default(autoincrement())
+  user_id      Int?
+  partner_id   Int?
+  care_home_id Int
+  date         DateTime @default(now())
+
+  @@map(name: "favorites")
+}
+
+model Setting {
+  id    Int     @id @default(autoincrement())
+  key   String  @unique
+  value String?
+
+  @@map(name: "settings")
+}
+
+model ResetPassword {
+  id          Int     @id @default(autoincrement())
+  email       String  @unique
+  token       String
+  otp         String  @db.VarChar(10)
+  role        String
+  is_verified Boolean @default(false)
+
+  @@map(name: "reset_password")
+}
+
+model Product {
+  id             Int      @id @default(autoincrement())
+  name           String
+  permalink      String?  @db.VarChar(200)
+  description    String?
+  content        String?
+  sku            String?  @db.VarChar(200)
+  price          Float?
+  discount_id    Int?
+  cost_pert_item Float?
+  barcode        String?  @db.VarChar(200)
+  stock_status   String?  @db.VarChar(200)
+  stock_quantity Int?
+  weight         Float?
+  length         Float?
+  wide           Float?
+  height         Float?
+  status         String?  @db.VarChar(200)
+  store_id       Int?
+  is_featured    Boolean?
+  category_id    Int?
+  brand_id       Int?
+  featured_image String?
+  collection_tag String?  @db.VarChar(200)
+  label          String?  @db.VarChar(200)
+
+  @@map(name: "products")
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  name          String?
+  email         String?   @unique @db.VarChar(200)
+  phone         String?   @unique @db.VarChar(200)
+  password      String
+  status        String?   @db.VarChar(200)
+  profile_image String?
+  private_notes String?
+  is_verified   Boolean   @default(false)
+  address       String?
+  description   String?
+  Address       Address[]
+
+  @@map(name: "users")
+}
+
+model TestUser {
+  id       Int     @id @default(autoincrement())
+  name     String
+  email    String? @db.VarChar(200)
+  phone    String? @db.VarChar(200)
+  password String?
+
+  @@map(name: "test_users")
+}
+
+model Page {
+  id          Int     @id @default(autoincrement())
+  name        String
+  permalink   String?
+  description String? @db.VarChar(200)
+  content     String? @db.VarChar(200)
+  status      String? @db.VarChar(200)
+  templete    String? @db.VarChar(200)
+  image       String? @db.VarChar(200)
+  Faq         Faq[]
+
+  @@map(name: "pages")
+}
+
+model Faq {
+  id       Int     @id @default(autoincrement())
+  page_id  Int?
+  question String?
+  answer   String?
+  Page     Page?   @relation(fields: [page_id], references: [id])
+
+  @@map(name: "faqs")
+}
+
+model Blog {
+  id           Int     @id @default(autoincrement())
+  title        String
+  author_name  String?
+  category     String? @db.VarChar(200)
+  short_desc   String? @db.VarChar(200)
+  description  String? @db.VarChar(200)
+  content      String? @db.VarChar(200)
+  author_image String? @db.VarChar(200)
+  blog_image   String? @db.VarChar(200)
+
+  @@map(name: "blogs")
+}
+
+// Inventory related schema
+
+model GoodReceipt {
+  id             Int       @id @default(autoincrement())
+  grn_number     String
+  purchase_order_id Int
+  receipt_date   DateTime
+  status         ReceiptStatus
+  created_by     Int
+  remarks        String?
+  return_status  Boolean
+  InspectionReport InspectionReport[]
+  GoodsReturn   GoodsReturn[]
+}
+
+model InspectionReport {
+  id               Int       @id @default(autoincrement())
+  good_receipt_id           Int
+  inspection_date  DateTime
+  inspection_committee_id     Int
+  approval_status  ApprovalStatus
+  comments         String?
+  GoodReceipt    GoodReceipt @relation(fields: [good_receipt_id], references: [id])
+  InspectionCommittee InspectionCommittee @relation(fields: [inspection_committee_id], references: [id])
+}
+
+model InspectionCommittee {
+  id          Int       @id @default(autoincrement())
+  name        String
+  created_by  Int
+  valid_until DateTime
+  InspectionReport InspectionReport[]
+}
+
+model Supplier {
+  id             Int       @id @default(autoincrement())
+  name           String
+  contact_person String
+  phone          String
+  email          String @unique
+  address        String
+  status         SupplierStatus
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+}
+
+model GoodsReturn {
+  id         Int       @id @default(autoincrement())
+  good_receipt_id     Int
+  return_date DateTime
+  reason     String
+  supplier_id Int
+  GoodReceipt GoodReceipt @relation(fields: [good_receipt_id], references: [id])
+}
+
+model InventoryItem {
+  id                  Int       @id @default(autoincrement())
+  item_code           String
+  name                String
+  description         String?
+  unit_price          Float
+  min_stock_quantity  Int
+  max_stock_quantity  Int
+  reorder_stock_quantity Int
+  safety_stock_level  Int
+  expiry_date         DateTime?
+  last_stock_date     DateTime?
+  cycle_count_code    String?
+  attributes          Json?
+  InventoryMovement  InventoryMovement[]
+  ApprovedPriceList  ApprovedPriceList[]
+  StockValuation     StockValuation[]
+  Disposal           Disposal[]
+  InventoryUpdate    InventoryUpdate[]
+  StockTakeDetail    StockTakeDetail[]
+}
+
+model StockLocation {
+  id          Int       @id @default(autoincrement())
+  name        String
+  type        LocationType
+  status      LocationStatus
+  InventoryMovementFrom InventoryMovement[] @relation("FromLocation")
+  InventoryMovementTo   InventoryMovement[] @relation("ToLocation")
+}
+
+model InventoryMovement {
+  id              Int       @id @default(autoincrement())
+  inventory_item_id         Int
+  from_location_id Int
+  to_location_id  Int
+  quantity        Int
+  movement_date   DateTime
+  movement_type   MovementType
+  InventoryItem  InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  FromLocation    StockLocation @relation("FromLocation", fields: [from_location_id], references: [id])
+  ToLocation      StockLocation @relation("ToLocation", fields: [to_location_id], references: [id])
+}
+
+model ApprovedPriceList {
+  id            Int       @id @default(autoincrement())
+  inventory_item_id       Int
+  supplier_id   Int
+  price         Float
+  effective_date DateTime
+  InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
+}
+
+model StockValuation {
+  id                  Int       @id @default(autoincrement())
+  inventory_item_id             Int
+  valuation_method    ValuationMethod
+  last_valuation_date DateTime
+  valuation_amount    Float
+  InventoryItem      InventoryItem @relation(fields: [inventory_item_id], references: [id])
+}
+
+model Disposal {
+  id             Int       @id @default(autoincrement())
+  inventory_item_id        Int
+  disposal_date  DateTime
+  reason         String
+  approval_status ApprovalStatus
+  disposal_code  String
+  InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
+}
+
+model InventoryUpdate {
+  id             Int       @id @default(autoincrement())
+  inventory_item_id        Int
+  change_quantity Int
+  update_type    UpdateType
+  updated_by     Int
+  update_date    DateTime
+  InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
+}
+
+model StockTakes {
+  id          Int       @id @default(autoincrement())
+  type        StockTakeType
+  status      StockTakeStatus
+  start_date  DateTime
+  end_date    DateTime?
+  StockTakeDetail StockTakeDetail[]
+  StockTakeCommittee StockTakeCommittee[]
+}
+
+model StockTakeDetail {
+  id             Int       @id @default(autoincrement())
+  stock_take_id  Int
+  inventory_item_id        Int
+  system_quantity Int
+  physical_quantity Int
+  variance       Int
+  comments       String?
+  StockTakes     StockTakes @relation(fields: [stock_take_id], references: [id])
+  InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
+}
+
+model StockTakeCommittee {
+  id           Int       @id @default(autoincrement())
+  stock_take_id Int
+  member_id    Int
+  StockTakes   StockTakes @relation(fields: [stock_take_id], references: [id])
+}
+
+enum ReceiptStatus {
+  Pending
+  Approved
+  Rejected
+}
+
+enum ApprovalStatus {
+  Pending
+  Approved
+  Rejected
+}
+
+enum LocationType {
+  Store
+  StockRoom
+  Bin
+}
+
+enum LocationStatus {
+  Active
+  Inactive
+}
+
+enum MovementType {
+  Issue
+  Receipt
+  Transfer
+}
+
+enum ValuationMethod {
+  FIFO
+  LIFO
+  SimpleAverage
+  WeightedAverage
+}
+
+enum UpdateType {
+  Addition
+  Deduction
+  Correction
+}
+
+enum StockTakeType {
+  Annual
+  Periodic
+  AdHoc
+  Selective
+}
+
+enum StockTakeStatus {
+  Scheduled
+  InProgress
+  Completed
+  Cancelled
+}
+enum SupplierStatus {
+  Active
+  Inactive
+}

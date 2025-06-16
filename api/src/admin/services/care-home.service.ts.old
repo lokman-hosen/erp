@@ -1,0 +1,60 @@
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { PrismaService } from '../../prisma/prisma.service';
+import { CareHomeDto } from '../dtos/care-home.dto';
+import { connect } from 'http2';
+import { findStateShortCode, } from 'src/common/constants';
+
+
+@Injectable()
+export class CareHomeService {
+    constructor(private readonly prismaService: PrismaService) { }
+
+    async createCareHome(homes: []) {
+        const data = []
+        for (let i = 0; i < homes.length; i++) {
+            const element = await this.createFormat(homes[i])
+            data.push(element)
+        }
+        return data
+    }
+
+    async create(data: any) {
+        const careHomes = await this.prismaService.careHome.createMany({ data })
+        return careHomes
+    }
+
+    async createFormat(createCareHome: CareHomeDto) {
+        if (createCareHome.city) {
+            const city = await this.prismaService.city.findFirst({ where: { name: createCareHome.city } })
+            if (city === null) {
+                const state_code = await findStateShortCode(createCareHome?.state)
+                const new_city = await this.prismaService.city.create({
+                    data: {
+                        name: createCareHome.city,
+                        code: state_code
+                    }
+                })
+                createCareHome.city_id = new_city.id
+            }
+            else {
+                createCareHome.city_id = city.id
+            }
+        }
+        delete createCareHome["city"]
+        return createCareHome
+    }
+
+
+    async setCareHomeAmenity(data: any, care_home_id: number) {
+        await this.prismaService.availableAmenities.deleteMany({ where: { care_home_id: care_home_id } })
+        const aminities = await this.prismaService.availableAmenities.createMany({ data })
+        return aminities
+    }
+
+    async setCareHomeCareType(data: any, care_home_id: number) {
+        await this.prismaService.careServiceOfferd.deleteMany({ where: { care_home_id: care_home_id } })
+        const care_types = await this.prismaService.careServiceOfferd.createMany({ data })
+        return care_types
+    }
+
+}

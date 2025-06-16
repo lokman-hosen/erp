@@ -1,0 +1,351 @@
+.tab-Con{
+    display: none;
+}
+.active-Con{
+    display: block!important;
+}
+.user-content-main-wrapper{
+    width: 100%;
+    display: flex;
+    margin-top: 72px;
+    justify-content: space-between;
+}
+.user-content-main-wrapper .button-Wrap{
+    padding: 16px 24px;
+    border-radius: 20px;
+    border: 1px solid var(--border-thin);
+    background: var(--brand-primary);
+    box-shadow: 0px 4px 34px 0px rgba(0, 0, 0, 0.05);
+    width: 230px;
+    height: 100%;
+}
+.user-content-main-wrapper .tab-content-wrap{
+    width: 955px;
+    height: 100%;
+}
+.user-content-main-wrapper .button-Wrap .tab-Button{
+    display: flex;
+    background: none;
+    padding: 16px 0;
+    color: var(--text-placeholder);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px;
+    transition: 300ms;
+}
+.user-content-main-wrapper .button-Wrap .tab-Button.active {
+    color: var(--bg-primary);
+}
+.user-content-main-wrapper .button-Wrap .tab-Button:hover{
+    color: var(--bg-primary);
+}
+.user-content-main-wrapper .button-Wrap .tab-Button img{
+    margin-right: 10px;
+}
+
+.button-Wrap .tab-Button img:nth-child(2) {
+    display: none;
+    transition: 300ms;
+}
+
+.button-Wrap .tab-Button:hover img:nth-child(1) {
+    display: none;
+    transition: 300ms;
+}
+
+.button-Wrap .tab-Button:hover img:nth-child(2) {
+    display: block;
+}
+.home-base-wrapper h1{
+    margin-bottom: 20px;
+}
+.user-advisor-wrapper{
+    margin: 72px 0;
+}
+.user-advisor-wrapper h2{
+    margin-bottom: 32px;
+}
+.advisor_avatar{
+    width: 146px;
+    height: 146px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.track-progress-tab-inner .star-badge-wrap .Star_Badge,
+.track-progress-tab-inner .elite-badge-wrap .Elite_Badge{
+    width: 68px;
+    height: 79px;
+}
+.user-advisor-inner{
+    padding: 24px;
+    border-radius: 20px;
+    border: 1px solid var(--border-thin);
+    background: var(--brand-primary);
+    display: flex;
+    gap: 24px;
+    width: 669px;
+}
+.advisor-details-head h5{
+    color: var(--text-tertiary);
+    margin-top: 4px;
+}
+.advisor-details{
+    width: 100%;
+}
+.advisor-details-head{
+    margin-bottom: 28px;
+}
+.advices-details-bottom div{
+    padding-right: 28px;
+    border-right: 1px solid var(--border-thin);
+    margin-right: 28px;
+}
+.advices-details-bottom div:last-child{
+    padding-right: 0;
+    border-right: 0;
+}
+.advices-details-bottom h6{
+    margin-bottom: 8px;
+}
+.recommended-communities .title-head{
+    margin-bottom: 32px;
+}
+.recommended-communities-items{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 32px;
+}
+
+.saved-communities-wrapper .title-head{
+    margin-bottom: 32px;
+}
+.user-referral-wrapper{
+    padding: 32px;
+    border-radius: 20px;
+    border: 1px solid var(--border-thin);
+    background: var(--brand-primary);
+    width: 100%;
+}
+.user-referral-button-Wrap{
+    display: flex;
+    gap: 16px;
+    margin-bottom: 48px;
+}
+.tuser-referral-content-wrap h2{
+    margin-bottom: 24px;
+}
+.referral-link-inner{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.recommended-communities-items .related-care-single-slider div:first-child {
+    width: 461px!important;
+    height: 250px!important;
+    border-radius: 20px;
+    background: #FFFFFF;
+    object-fit: cover;
+}
+.referral-link-inner .copy-link-Bar{
+    /*width: 100%;*/
+}
+.referral-link-inner .copy-link-Bar input{
+    width: 360px;
+}
+.referral-link-inner .copy-link-Bar button{
+    padding: 16px 24px;
+}
+
+.referral-link-tab h2{
+    margin-bottom: 24px;
+}
+.track-progress-wrapper h2{
+    margin-bottom: 48px;
+}
+.track-progress-number{
+    color: #FFAD33;
+    text-align: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: 0.2px;
+}
+.track-progress-tab-inner{
+    width: 100%;
+    position: relative;
+}
+
+.track-progress-tab-inner .star-badge-wrap{
+    position: absolute;
+    top: -40px;
+    left: 45%;
+}
+.track-progress-tab-inner .elite-badge-wrap{
+    position: absolute;
+    top: -40px;
+    right: 0px;
+}
+.track-progress-tab-inner .progress-bar {
+    background-color: #FFAD33!important;
+}
+.track-progress-tab-inner .progress, .progress-stacked {
+    --bs-progress-bg: #F6F6F6!important;
+}
+.track-progress-tab-inner .elite-badge-wrap img,
+.track-progress-tab-inner .star-badge-wrap img{
+    position: relative;
+}
+.star-badge-hover-wrap{
+    position: absolute;
+    top: -67px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--brand-primary);
+    box-shadow: 0px 4px 34px 0px rgba(0, 0, 0, 0.05);
+    width: 207px;
+    text-align: center;
+    left: -103%;
+}
+.pc-button-wrap{
+    height: 100%;
+}
+.star-badge-hover-wrap::before {
+    content: '';
+    position: absolute;
+    left: 47%;
+     background-color: var(--brand-primary);
+    height: 15px;
+    width: 15px;
+    -webkit-transform: rotate(45deg) skew(1deg,1deg);
+    bottom: -8px;
+}
+.elite-badge-hover-wrap{
+    position: absolute;
+    top: -67px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--brand-primary);
+    box-shadow: 0px 4px 34px 0px rgba(0, 0, 0, 0.05);
+    width: 207px;
+    text-align: center;
+    left: -103%;
+}
+.elite-badge-hover-wrap::before {
+    content: '';
+    position: absolute;
+    left: 47%;
+     background-color: var(--brand-primary);
+    height: 15px;
+    width: 15px;
+    -webkit-transform: rotate(45deg) skew(1deg,1deg);
+    bottom: -8px;
+}
+.track-progress-tab-wrapper{
+    width: 85%;
+    margin: 0 auto;
+}
+.track-progress-tab-wrapper{
+    margin-bottom: 48px;
+}
+.your-referrals-wrapper h3{
+    margin-bottom: 24px;
+}
+.your-referrals-table .container .row:first-child{
+    margin-bottom: 24px;
+}
+.your-referrals-table .container .row{
+    margin-bottom: 16px;
+}
+.rewards-wrapper h2{
+    margin-bottom: 24px;
+}
+.how-works-wrapper,
+.bonus-card-wrapper{
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--bg-light);
+}
+.how-works-wrapper{
+    min-height: 224px;
+}
+.bonus-card-wrapper{
+    min-height: 345px;
+}
+.bonus-card-wrapper .Cash_Badge_icon{
+    width: 68.907px;
+    height: 79.567px;
+}
+.bonus-card-wrapper .yellow-text{
+    color: #FFAD33;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500!important;
+    line-height: 24px;
+}
+.bonus-card-wrapper img{
+    margin-bottom: 20px;
+}
+.bonus-card-wrapper h4{
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.bonus-card-inner{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+}
+.how-it-works-inner{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
+}
+.how-works-wrapper .how-works-number{
+    width: 48px;
+    height: 48px;
+    border-radius: 96px;
+    background: #FFAD33;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+.referral-link-inner .step-middle{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.profile-info-pass-wrap,
+.profile-setting-info-inner{
+    padding: 32px;
+    border-radius: 20px;
+    border: 1px solid var(--border-thin);
+    background: var(--brand-primary);
+    margin-bottom: 32px;
+}
+.image-upload-wrap{
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    margin: 32px 0;
+}
+.image-upload-wrap .upload-avater-img{
+    width: 146px;
+    height: 146px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.profile-setting-wrapper .profile-setting-btn{
+    display: flex;
+    justify-content: end;
+    margin-top: 8px;
+}
+.profile-info-pass-wrap h3{
+    margin-bottom: 32px;
+}
+.profile-setting-wrapper{
+    width: 650px;
+}

@@ -1,0 +1,159 @@
+.page-hero-title{
+    margin: 72px 0;
+}
+.assisted-living-inner{
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    width: 100%;
+}
+.assisted-living-side-bar{
+    width: 352px;
+    height: 100%;
+    padding: 24px;
+    border-radius: 20px;
+    border: 1px solid var(--border-secondary);
+    background: var(--brand-primary);
+    box-shadow: 0px 4px 34px 0px rgba(0, 0, 0, 0.05);
+}
+.assisted-living-side-bar .sidebar-wrapper:last-child{
+    border-bottom: none;
+}
+.assisted-living-side-bar ul{
+    padding-left: 10px;
+}
+.sidebar-wrapper{
+    padding: 20px;
+    border-bottom: 1px solid var(--border-thin);
+}
+.sidebar-wrapper ul{
+    list-style: none;
+    margin-top: 16px;
+}
+.sidebar-wrapper ul li{
+    margin-bottom: 12px;
+}
+.assisted-living-side-content{
+    width: 867px;
+}
+.assisted-living-side-content h1{
+    margin-bottom: 32px;
+}
+.key-characteristics{
+    margin: 32px 0;
+}
+.key-characteristics h2{
+    margin-bottom: 24px;
+    color: var(--text-primary)!important;
+}
+.key-characteristics ol li{
+    margin-bottom: 12px;
+}
+.start-searching-care{
+    margin: 60px 0;
+    padding: 32px;
+    border-radius: 16px;
+    background: var(--bg-light);
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    align-items: center;
+}
+.list-of-services h2{
+    margin-bottom: 24px;
+}
+.list-of-services-inner{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px 40px;
+}
+
+.assisted_living_hero_img{
+    border-radius: 16px;
+    margin: 60px 0;
+    width: 100%;
+    height: auto;
+}
+.difference-between-inner table thead th{
+    padding: 20px;
+    text-align: center;
+    color: var(--text-primary);
+    background: var(--bg-field-selected);
+}
+.difference-between-inner .table-wrapper{
+    border-radius: 12px;
+    border: 1px solid var(--border-secondary);
+    overflow: hidden;
+    margin-bottom: 60px;
+}
+.difference-between-inner .table-wrapper .bg-table-tr{
+    background: var(--bg-light);
+}
+.difference-between-inner table thead th:first-child{
+    text-align: start!important;
+    width: 25%;
+}
+.difference-between-inner table td{
+    text-align: center;
+    padding: 20px;
+}
+.difference-between-inner table td:first-child{
+    text-align: start!important;
+}
+.difference-between-inner h3{
+    margin-bottom: 32px;
+}
+.difference-between-inner h5{
+    margin-bottom: 60px;
+}
+.difference-between-inner .primary-short-btn{
+    width: 196px;
+}
+.double-img-wrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 60px;
+}
+.double-img-wrapper .assisted_living_single{
+    border-radius: 16px;
+    width: 49%;
+    height: auto;
+}
+.living-cost-inner h5,
+.living-cost-inner h3{
+    margin-bottom: 32px;
+}
+.living-cost-inner ol{
+    color: var(--bg-primary);
+    padding-left: 17px;
+}
+.living-cost-inner ol li{
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+.living-cost-inner ol li a{
+    color: var(--bg-primary);
+}
+.living-cost-inner{
+    margin-bottom: 60px;
+}
+.title-small-short{
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+.an-assisted-living-ol{
+    padding-left: 17px;
+    margin-bottom: 24px;
+}
+.an-assisted-living-ol li{
+    margin-bottom: 12px!important;
+}
+.an-assisted-living-ol ul li{
+    margin-bottom: 12px;
+}
+.an-assisted-living-ol ul{
+    margin-top: 12px;
+}
