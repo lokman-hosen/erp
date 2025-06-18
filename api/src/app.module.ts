@@ -16,6 +16,7 @@ import { EmailModule } from './email/email.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UserAuthModule } from './user-auth/user-auth.module';
 import { UsersModule } from './users/users.module';
+import { SupplierModule } from './supplier/supplier.module';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     AdminModule,
     EmailModule,
-    AdminAuthModule
+    AdminAuthModule,
+    SupplierModule
   ],
   controllers: [AppController],
   providers: [AppService],

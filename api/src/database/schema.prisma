@@ -46,12 +46,12 @@ model Attachment {
   @@map(name: "attachments")
 }
 
-model Newsletter {
-  id    Int    @id @default(autoincrement())
-  email String @db.VarChar(200)
-
-  @@map(name: "newsletters")
-}
+// model Newsletter {
+//   id    Int    @id @default(autoincrement())
+//   email String @db.VarChar(200)
+//
+//   @@map(name: "newsletters")
+// }
 
 model OtpVerification {
   id    Int     @id @default(autoincrement())
@@ -62,16 +62,16 @@ model OtpVerification {
   @@map(name: "otp_verifications")
 }
 
-model Testimonial {
-  id         Int     @id @default(autoincrement())
-  user_name  String  @db.VarChar(200)
-  desc       String?
-  city       String? @db.VarChar(200)
-  image      String? @db.VarChar(200)
-  sort_order Int     @default(1)
-
-  @@map(name: "testimonials")
-}
+// model Testimonial {
+//   id         Int     @id @default(autoincrement())
+//   user_name  String  @db.VarChar(200)
+//   desc       String?
+//   city       String? @db.VarChar(200)
+//   image      String? @db.VarChar(200)
+//   sort_order Int     @default(1)
+//
+//   @@map(name: "testimonials")
+// }
 
 model Address {
   id                 Int     @id @default(autoincrement())
@@ -91,15 +91,15 @@ model Address {
   @@map(name: "addresses")
 }
 
-model Favorite {
-  id           Int      @id @default(autoincrement())
-  user_id      Int?
-  partner_id   Int?
-  care_home_id Int
-  date         DateTime @default(now())
-
-  @@map(name: "favorites")
-}
+// model Favorite {
+//   id           Int      @id @default(autoincrement())
+//   user_id      Int?
+//   partner_id   Int?
+//   care_home_id Int
+//   date         DateTime @default(now())
+//
+//   @@map(name: "favorites")
+// }
 
 model Setting {
   id    Int     @id @default(autoincrement())
@@ -120,34 +120,34 @@ model ResetPassword {
   @@map(name: "reset_password")
 }
 
-model Product {
-  id             Int      @id @default(autoincrement())
-  name           String
-  permalink      String?  @db.VarChar(200)
-  description    String?
-  content        String?
-  sku            String?  @db.VarChar(200)
-  price          Float?
-  discount_id    Int?
-  cost_pert_item Float?
-  barcode        String?  @db.VarChar(200)
-  stock_status   String?  @db.VarChar(200)
-  stock_quantity Int?
-  weight         Float?
-  length         Float?
-  wide           Float?
-  height         Float?
-  status         String?  @db.VarChar(200)
-  store_id       Int?
-  is_featured    Boolean?
-  category_id    Int?
-  brand_id       Int?
-  featured_image String?
-  collection_tag String?  @db.VarChar(200)
-  label          String?  @db.VarChar(200)
-
-  @@map(name: "products")
-}
+// model Product {
+//   id             Int      @id @default(autoincrement())
+//   name           String
+//   permalink      String?  @db.VarChar(200)
+//   description    String?
+//   content        String?
+//   sku            String?  @db.VarChar(200)
+//   price          Float?
+//   discount_id    Int?
+//   cost_pert_item Float?
+//   barcode        String?  @db.VarChar(200)
+//   stock_status   String?  @db.VarChar(200)
+//   stock_quantity Int?
+//   weight         Float?
+//   length         Float?
+//   wide           Float?
+//   height         Float?
+//   status         String?  @db.VarChar(200)
+//   store_id       Int?
+//   is_featured    Boolean?
+//   category_id    Int?
+//   brand_id       Int?
+//   featured_image String?
+//   collection_tag String?  @db.VarChar(200)
+//   label          String?  @db.VarChar(200)
+//
+//   @@map(name: "products")
+// }
 
 model User {
   id            Int       @id @default(autoincrement())
@@ -176,43 +176,43 @@ model TestUser {
   @@map(name: "test_users")
 }
 
-model Page {
-  id          Int     @id @default(autoincrement())
-  name        String
-  permalink   String?
-  description String? @db.VarChar(200)
-  content     String? @db.VarChar(200)
-  status      String? @db.VarChar(200)
-  templete    String? @db.VarChar(200)
-  image       String? @db.VarChar(200)
-  Faq         Faq[]
+// model Page {
+//   id          Int     @id @default(autoincrement())
+//   name        String
+//   permalink   String?
+//   description String? @db.VarChar(200)
+//   content     String? @db.VarChar(200)
+//   status      String? @db.VarChar(200)
+//   templete    String? @db.VarChar(200)
+//   image       String? @db.VarChar(200)
+//   Faq         Faq[]
+//
+//   @@map(name: "pages")
+// }
 
-  @@map(name: "pages")
-}
-
-model Faq {
-  id       Int     @id @default(autoincrement())
-  page_id  Int?
-  question String?
-  answer   String?
-  Page     Page?   @relation(fields: [page_id], references: [id])
-
-  @@map(name: "faqs")
-}
-
-model Blog {
-  id           Int     @id @default(autoincrement())
-  title        String
-  author_name  String?
-  category     String? @db.VarChar(200)
-  short_desc   String? @db.VarChar(200)
-  description  String? @db.VarChar(200)
-  content      String? @db.VarChar(200)
-  author_image String? @db.VarChar(200)
-  blog_image   String? @db.VarChar(200)
-
-  @@map(name: "blogs")
-}
+// model Faq {
+//   id       Int     @id @default(autoincrement())
+//   page_id  Int?
+//   question String?
+//   answer   String?
+//   Page     Page?   @relation(fields: [page_id], references: [id])
+//
+//   @@map(name: "faqs")
+// }
+//
+// model Blog {
+//   id           Int     @id @default(autoincrement())
+//   title        String
+//   author_name  String?
+//   category     String? @db.VarChar(200)
+//   short_desc   String? @db.VarChar(200)
+//   description  String? @db.VarChar(200)
+//   content      String? @db.VarChar(200)
+//   author_image String? @db.VarChar(200)
+//   blog_image   String? @db.VarChar(200)
+//
+//   @@map(name: "blogs")
+// }
 
 // Inventory related schema
 
@@ -246,7 +246,7 @@ model InspectionCommittee {
   created_by  Int
   valid_until DateTime
   InspectionReport InspectionReport[]
-  status      Status
+  status      String
 }
 
 model Supplier {
@@ -256,7 +256,7 @@ model Supplier {
   phone          String
   email          String @unique
   address        String
-  status         Status
+  status         String
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 }
@@ -268,7 +268,7 @@ model GoodsReturn {
   reason     String
   supplier_id Int
   GoodReceipt GoodReceipt @relation(fields: [good_receipt_id], references: [id])
-  status      Status
+  status      String
 }
 
 model InventoryItem {
@@ -291,14 +291,14 @@ model InventoryItem {
   Disposal           Disposal[]
   InventoryUpdate    InventoryUpdate[]
   StockTakeDetail    StockTakeDetail[]
-  status             Status
+  status             String
 }
 
 model StockLocation {
   id          Int       @id @default(autoincrement())
   name        String
   type        LocationType
-  status      Status
+  status      String
   InventoryMovementFrom InventoryMovement[] @relation("FromLocation")
   InventoryMovementTo   InventoryMovement[] @relation("ToLocation")
 }
@@ -311,7 +311,7 @@ model InventoryMovement {
   quantity        Int
   movement_date   DateTime
   movement_type   MovementType
-  status          Status
+  status          String
   InventoryItem  InventoryItem @relation(fields: [inventory_item_id], references: [id])
   FromLocation    StockLocation @relation("FromLocation", fields: [from_location_id], references: [id])
   ToLocation      StockLocation @relation("ToLocation", fields: [to_location_id], references: [id])
@@ -323,7 +323,7 @@ model ApprovedPriceList {
   supplier_id   Int
   price         Float
   effective_date DateTime
-  status         Status
+  status         String
   InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
@@ -333,7 +333,7 @@ model StockValuation {
   valuation_method    ValuationMethod
   last_valuation_date DateTime
   valuation_amount    Float
-  status              Status
+  status              String
   InventoryItem      InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
@@ -344,7 +344,7 @@ model Disposal {
   reason         String
   approval_status ApprovalStatus
   disposal_code  String
-  status         Status
+  status         String
   InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
@@ -355,7 +355,7 @@ model InventoryUpdate {
   update_type    UpdateType
   updated_by     Int
   update_date    DateTime
-  status         Status
+  status         String
   InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
@@ -377,7 +377,7 @@ model StockTakeDetail {
   physical_quantity Int
   variance       Int
   comments       String?
-  status         Status
+  status         String
   StockTakes     StockTakes @relation(fields: [stock_take_id], references: [id])
   InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
@@ -386,7 +386,7 @@ model StockTakeCommittee {
   id           Int       @id @default(autoincrement())
   stock_take_id Int
   member_id    Int
-  status       Status
+  status       String
   StockTakes   StockTakes @relation(fields: [stock_take_id], references: [id])
 }
 
@@ -439,8 +439,4 @@ enum StockTakeStatus {
   InProgress
   Completed
   Cancelled
-}
-enum Status {
-  Active
-  Inactive
 }
