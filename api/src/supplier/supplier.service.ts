@@ -52,7 +52,13 @@ export class SupplierService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} supplier`;
+  async remove(id: number) {
+    try {
+      await this.prisma.supplier.delete({where: { id }});
+      return { message: `Supplier with ID ${id} successfully deleted.` };
+    } catch (error) {
+      throw new Error(`Failed to delete supplier: ${error.message}`);
+    }
   }
+
 }
