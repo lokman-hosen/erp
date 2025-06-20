@@ -19,6 +19,7 @@ import { UsersModule } from './users/users.module';
 import { SupplierModule } from './supplier/supplier.module';
 import { GoodsReturnModule } from './goods-return/goods-return.module';
 import { GoodReceiptModule } from './good-receipt/good-receipt.module';
+import { InspectionCommitteeModule } from './inspection-committee/inspection-committee.module';
 
 @Module({
   imports: [
@@ -48,7 +49,8 @@ import { GoodReceiptModule } from './good-receipt/good-receipt.module';
     AdminAuthModule,
     SupplierModule,
     GoodsReturnModule,
-    GoodReceiptModule
+    GoodReceiptModule,
+    InspectionCommitteeModule
   ],
   controllers: [AppController],
   providers: [AppService],

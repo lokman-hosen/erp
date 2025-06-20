@@ -241,15 +241,14 @@ model GoodReceipt {
   GoodsReturn   GoodsReturn[]
 }
 
-model InspectionReport {
-  id               Int       @id @default(autoincrement())
-  good_receipt_id           Int
-  inspection_date  DateTime
-  inspection_committee_id     Int
-  approval_status  ApprovalStatus
-  comments         String?
-  GoodReceipt    GoodReceipt @relation(fields: [good_receipt_id], references: [id])
-  InspectionCommittee InspectionCommittee @relation(fields: [inspection_committee_id], references: [id])
+model GoodsReturn {
+  id         Int       @id @default(autoincrement())
+  good_receipt_id     Int
+  return_date DateTime
+  reason     String
+  supplier_id Int
+  GoodReceipt GoodReceipt @relation(fields: [good_receipt_id], references: [id])
+  status      String
 }
 
 model InspectionCommittee {
@@ -261,15 +260,17 @@ model InspectionCommittee {
   status      String
 }
 
-model GoodsReturn {
-  id         Int       @id @default(autoincrement())
-  good_receipt_id     Int
-  return_date DateTime
-  reason     String
-  supplier_id Int
-  GoodReceipt GoodReceipt @relation(fields: [good_receipt_id], references: [id])
-  status      String
+model InspectionReport {
+  id               Int       @id @default(autoincrement())
+  good_receipt_id           Int
+  inspection_date  DateTime
+  inspection_committee_id     Int
+  approval_status  ApprovalStatus
+  comments         String?
+  GoodReceipt    GoodReceipt @relation(fields: [good_receipt_id], references: [id])
+  InspectionCommittee InspectionCommittee @relation(fields: [inspection_committee_id], references: [id])
 }
+
 
 model InventoryItem {
   id                  Int       @id @default(autoincrement())
