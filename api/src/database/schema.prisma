@@ -295,14 +295,14 @@ model InventoryItem {
   status             String
 }
 
-model StockLocation {
-  id          Int       @id @default(autoincrement())
-  name        String
-  type        LocationType
-  status      String
-  InventoryMovementFrom InventoryMovement[] @relation("FromLocation")
-  InventoryMovementTo   InventoryMovement[] @relation("ToLocation")
-}
+  model StockLocation {
+    id          Int       @id @default(autoincrement())
+    name        String
+    type        LocationType
+    status      String
+    InventoryMovementFrom InventoryMovement[] @relation("FromLocation")
+    InventoryMovementTo   InventoryMovement[] @relation("ToLocation")
+  }
 
 model InventoryMovement {
   id              Int       @id @default(autoincrement())
