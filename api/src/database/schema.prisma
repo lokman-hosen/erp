@@ -216,6 +216,18 @@ model TestUser {
 
 // Inventory related schema
 
+model Supplier {
+  id             Int       @id @default(autoincrement())
+  name           String
+  contact_person String
+  phone          String
+  email          String @unique
+  address        String
+  status         String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+}
+
 model GoodReceipt {
   id             Int       @id @default(autoincrement())
   grn_number     String
@@ -247,18 +259,6 @@ model InspectionCommittee {
   valid_until DateTime
   InspectionReport InspectionReport[]
   status      String
-}
-
-model Supplier {
-  id             Int       @id @default(autoincrement())
-  name           String
-  contact_person String
-  phone          String
-  email          String @unique
-  address        String
-  status         String
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
 }
 
 model GoodsReturn {
@@ -312,7 +312,7 @@ model InventoryMovement {
   movement_date   DateTime
   movement_type   MovementType
   status          String
-  InventoryItem  InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  InventoryItem   InventoryItem @relation(fields: [inventory_item_id], references: [id])
   FromLocation    StockLocation @relation("FromLocation", fields: [from_location_id], references: [id])
   ToLocation      StockLocation @relation("ToLocation", fields: [to_location_id], references: [id])
 }

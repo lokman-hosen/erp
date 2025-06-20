@@ -17,6 +17,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserAuthModule } from './user-auth/user-auth.module';
 import { UsersModule } from './users/users.module';
 import { SupplierModule } from './supplier/supplier.module';
+import { GoodsReturnModule } from './goods-return/goods-return.module';
+import { GoodReceiptModule } from './good-receipt/good-receipt.module';
 
 @Module({
   imports: [
@@ -44,7 +46,9 @@ import { SupplierModule } from './supplier/supplier.module';
     AdminModule,
     EmailModule,
     AdminAuthModule,
-    SupplierModule
+    SupplierModule,
+    GoodsReturnModule,
+    GoodReceiptModule
   ],
   controllers: [AppController],
   providers: [AppService],

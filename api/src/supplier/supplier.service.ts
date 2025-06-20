@@ -10,9 +10,7 @@ export class SupplierService {
 
   async create(createSupplierDto: CreateSupplierDto) {
     try {
-      return await this.prisma.supplier.create({
-        data:createSupplierDto
-      });
+      return await this.prisma.supplier.create({data:createSupplierDto});
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       throw new Error(`Failed to create supplier: ${error.message}`);
