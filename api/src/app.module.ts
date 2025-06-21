@@ -22,6 +22,7 @@ import { GoodReceiptModule } from './good-receipt/good-receipt.module';
 import { InspectionCommitteeModule } from './inspection-committee/inspection-committee.module';
 import { InventoryItemModule } from './inventory-item/inventory-item.module';
 import { StockLocationModule } from './stock-location/stock-location.module';
+import { InventoryMovementModule } from './inventory-movement/inventory-movement.module';
 
 @Module({
   imports: [
@@ -54,7 +55,8 @@ import { StockLocationModule } from './stock-location/stock-location.module';
     GoodReceiptModule,
     InspectionCommitteeModule,
     InventoryItemModule,
-    StockLocationModule
+    StockLocationModule,
+    InventoryMovementModule
   ],
   controllers: [AppController],
   providers: [AppService],
