@@ -23,6 +23,7 @@ import { InspectionCommitteeModule } from './inspection-committee/inspection-com
 import { InventoryItemModule } from './inventory-item/inventory-item.module';
 import { StockLocationModule } from './stock-location/stock-location.module';
 import { InventoryMovementModule } from './inventory-movement/inventory-movement.module';
+import { StockValuationModule } from './stock-valuation/stock-valuation.module';
 
 @Module({
   imports: [
@@ -56,7 +57,8 @@ import { InventoryMovementModule } from './inventory-movement/inventory-movement
     InspectionCommitteeModule,
     InventoryItemModule,
     StockLocationModule,
-    InventoryMovementModule
+    InventoryMovementModule,
+    StockValuationModule
   ],
   controllers: [AppController],
   providers: [AppService],
