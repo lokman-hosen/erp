@@ -24,6 +24,7 @@ import { InventoryItemModule } from './inventory-item/inventory-item.module';
 import { StockLocationModule } from './stock-location/stock-location.module';
 import { InventoryMovementModule } from './inventory-movement/inventory-movement.module';
 import { StockValuationModule } from './stock-valuation/stock-valuation.module';
+import { DisposalModule } from './disposal/disposal.module';
 
 @Module({
   imports: [
@@ -58,7 +59,8 @@ import { StockValuationModule } from './stock-valuation/stock-valuation.module';
     InventoryItemModule,
     StockLocationModule,
     InventoryMovementModule,
-    StockValuationModule
+    StockValuationModule,
+    DisposalModule
   ],
   controllers: [AppController],
   providers: [AppService],
