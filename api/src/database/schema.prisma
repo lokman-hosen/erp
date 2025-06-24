@@ -200,19 +200,19 @@ model TestUser {
 //   @@map(name: "faqs")
 // }
 //
-// model Blog {
-//   id           Int     @id @default(autoincrement())
-//   title        String
-//   author_name  String?
-//   category     String? @db.VarChar(200)
-//   short_desc   String? @db.VarChar(200)
-//   description  String? @db.VarChar(200)
-//   content      String? @db.VarChar(200)
-//   author_image String? @db.VarChar(200)
-//   blog_image   String? @db.VarChar(200)
-//
-//   @@map(name: "blogs")
-// }
+model Blog {
+  id           Int     @id @default(autoincrement())
+  title        String
+  author_name  String?
+  category     String? @db.VarChar(200)
+  short_desc   String? @db.VarChar(200)
+  description  String? @db.VarChar(200)
+  content      String? @db.VarChar(200)
+  author_image String? @db.VarChar(200)
+  blog_image   String? @db.VarChar(200)
+
+  @@map(name: "blogs")
+}
 
 // Inventory related schema
 
@@ -220,10 +220,10 @@ model Supplier {
   id             Int       @id @default(autoincrement())
   name           String
   contact_person String
-  phone          String
-  email          String @unique
-  address        String
-  status         String
+  phone          String?
+  email          String? @unique
+  address        String?
+  status         String?
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 }
