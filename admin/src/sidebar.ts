@@ -48,6 +48,10 @@ export default [
     label: 'Testimonial',
     key: '/testimonials',
   },
+  {
+    label: 'Inventory Item',
+    key: '/inventory-item',
+  },
   /*{
     label: 'Client',
     key: '/client-menu',
