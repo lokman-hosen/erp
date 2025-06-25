@@ -60,6 +60,10 @@ export default [
     label: 'Stock Takes',
     key: '/stock-takes',
   },
+  {
+    label: 'Inspection Committee',
+    key: '/committee',
+  },
   /*{
     label: 'Client',
     key: '/client-menu',
