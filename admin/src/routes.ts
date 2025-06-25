@@ -5,6 +5,7 @@ import { lazy } from 'react';
 
 const Dashboard = lazy(() => import('./pages/Home'));
 const Products = lazy(() => import('./pages/products'));
+const AdminUser = lazy(() => import('./pages/admin-user'));
 const DetailRequestTeacher = lazy(() => import('./pages/products/details'));
 const blogs = lazy(() => import('./pages/blogs'));
 const blogDetail = lazy(() => import('./pages/blogs/details'));
@@ -20,6 +21,7 @@ const testimonialDetail = lazy(() => import('./pages/Testimonials/details'));
 const routes = [
   { path: '/', element: Dashboard },
   { path: '/products', element: Products },
+  { path: '/admin-user', element: AdminUser },
   { path: '/products/details/:id', element: DetailRequestTeacher },
   { path: '/blogs', element: blogs },
   { path: '/blog/details/:id', element: blogDetail },

@@ -9,6 +9,10 @@ export default [
     key: '/',
   },
   {
+    label: 'Admin User',
+    key: '/admin-user'
+  },
+  {
     label: 'Products',
     key: '/products',
   },

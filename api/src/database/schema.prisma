@@ -217,167 +217,167 @@ model Blog {
 // Inventory related schema
 
 model GoodReceipt {
-  id             Int       @id @default(autoincrement())
-  grn_number     String
+  id                Int                @id @default(autoincrement())
+  grn_number        String
   purchase_order_id Int
-  receipt_date   DateTime
-  status         ReceiptStatus
-  created_by     Int
-  remarks        String?
-  return_status  Boolean
-  InspectionReport InspectionReport[]
-  GoodsReturn   GoodsReturn[]
+  receipt_date      DateTime
+  status            ReceiptStatus
+  created_by        Int
+  remarks           String?
+  return_status     Boolean
+  InspectionReport  InspectionReport[]
+  GoodsReturn       GoodsReturn[]
 }
 
 model InspectionReport {
-  id               Int       @id @default(autoincrement())
-  good_receipt_id           Int
-  inspection_date  DateTime
-  inspection_committee_id     Int
-  approval_status  ApprovalStatus
-  comments         String?
-  GoodReceipt    GoodReceipt @relation(fields: [good_receipt_id], references: [id])
-  InspectionCommittee InspectionCommittee @relation(fields: [inspection_committee_id], references: [id])
+  id                      Int                 @id @default(autoincrement())
+  good_receipt_id         Int
+  inspection_date         DateTime
+  inspection_committee_id Int
+  approval_status         ApprovalStatus
+  comments                String?
+  GoodReceipt             GoodReceipt         @relation(fields: [good_receipt_id], references: [id])
+  InspectionCommittee     InspectionCommittee @relation(fields: [inspection_committee_id], references: [id])
 }
 
 model InspectionCommittee {
-  id          Int       @id @default(autoincrement())
-  name        String
-  created_by  Int
-  valid_until DateTime
+  id               Int                @id @default(autoincrement())
+  name             String
+  created_by       Int
+  valid_until      DateTime
   InspectionReport InspectionReport[]
 }
 
 model Supplier {
-  id             Int       @id @default(autoincrement())
+  id             Int            @id @default(autoincrement())
   name           String
   contact_person String
   phone          String
-  email          String @unique
+  email          String         @unique
   address        String
   status         SupplierStatus
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
+  created_at     DateTime       @default(now())
+  updated_at     DateTime       @updatedAt
 }
 
 model GoodsReturn {
-  id         Int       @id @default(autoincrement())
-  good_receipt_id     Int
-  return_date DateTime
-  reason     String
-  supplier_id Int
-  GoodReceipt GoodReceipt @relation(fields: [good_receipt_id], references: [id])
+  id              Int         @id @default(autoincrement())
+  good_receipt_id Int
+  return_date     DateTime
+  reason          String
+  supplier_id     Int
+  GoodReceipt     GoodReceipt @relation(fields: [good_receipt_id], references: [id])
 }
 
 model InventoryItem {
-  id                  Int       @id @default(autoincrement())
-  item_code           String
-  name                String
-  description         String?
-  unit_price          Float
-  min_stock_quantity  Int
-  max_stock_quantity  Int
+  id                     Int                 @id @default(autoincrement())
+  item_code              String
+  name                   String
+  description            String?
+  unit_price             Float
+  min_stock_quantity     Int
+  max_stock_quantity     Int
   reorder_stock_quantity Int
-  safety_stock_level  Int
-  expiry_date         DateTime?
-  last_stock_date     DateTime?
-  cycle_count_code    String?
-  attributes          Json?
-  InventoryMovement  InventoryMovement[]
-  ApprovedPriceList  ApprovedPriceList[]
-  StockValuation     StockValuation[]
-  Disposal           Disposal[]
-  InventoryUpdate    InventoryUpdate[]
-  StockTakeDetail    StockTakeDetail[]
+  safety_stock_level     Int
+  expiry_date            DateTime?
+  last_stock_date        DateTime?
+  cycle_count_code       String?
+  attributes             Json?
+  InventoryMovement      InventoryMovement[]
+  ApprovedPriceList      ApprovedPriceList[]
+  StockValuation         StockValuation[]
+  Disposal               Disposal[]
+  InventoryUpdate        InventoryUpdate[]
+  StockTakeDetail        StockTakeDetail[]
 }
 
 model StockLocation {
-  id          Int       @id @default(autoincrement())
-  name        String
-  type        LocationType
-  status      LocationStatus
+  id                    Int                 @id @default(autoincrement())
+  name                  String
+  type                  LocationType
+  status                LocationStatus
   InventoryMovementFrom InventoryMovement[] @relation("FromLocation")
   InventoryMovementTo   InventoryMovement[] @relation("ToLocation")
 }
 
 model InventoryMovement {
-  id              Int       @id @default(autoincrement())
-  inventory_item_id         Int
-  from_location_id Int
-  to_location_id  Int
-  quantity        Int
-  movement_date   DateTime
-  movement_type   MovementType
-  InventoryItem  InventoryItem @relation(fields: [inventory_item_id], references: [id])
-  FromLocation    StockLocation @relation("FromLocation", fields: [from_location_id], references: [id])
-  ToLocation      StockLocation @relation("ToLocation", fields: [to_location_id], references: [id])
+  id                Int           @id @default(autoincrement())
+  inventory_item_id Int
+  from_location_id  Int
+  to_location_id    Int
+  quantity          Int
+  movement_date     DateTime
+  movement_type     MovementType
+  InventoryItem     InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  FromLocation      StockLocation @relation("FromLocation", fields: [from_location_id], references: [id])
+  ToLocation        StockLocation @relation("ToLocation", fields: [to_location_id], references: [id])
 }
 
 model ApprovedPriceList {
-  id            Int       @id @default(autoincrement())
-  inventory_item_id       Int
-  supplier_id   Int
-  price         Float
-  effective_date DateTime
-  InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  id                Int           @id @default(autoincrement())
+  inventory_item_id Int
+  supplier_id       Int
+  price             Float
+  effective_date    DateTime
+  InventoryItem     InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
 model StockValuation {
-  id                  Int       @id @default(autoincrement())
-  inventory_item_id             Int
+  id                  Int             @id @default(autoincrement())
+  inventory_item_id   Int
   valuation_method    ValuationMethod
   last_valuation_date DateTime
   valuation_amount    Float
-  InventoryItem      InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  InventoryItem       InventoryItem   @relation(fields: [inventory_item_id], references: [id])
 }
 
 model Disposal {
-  id             Int       @id @default(autoincrement())
-  inventory_item_id        Int
-  disposal_date  DateTime
-  reason         String
-  approval_status ApprovalStatus
-  disposal_code  String
-  InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  id                Int            @id @default(autoincrement())
+  inventory_item_id Int
+  disposal_date     DateTime
+  reason            String
+  approval_status   ApprovalStatus
+  disposal_code     String
+  InventoryItem     InventoryItem  @relation(fields: [inventory_item_id], references: [id])
 }
 
 model InventoryUpdate {
-  id             Int       @id @default(autoincrement())
-  inventory_item_id        Int
-  change_quantity Int
-  update_type    UpdateType
-  updated_by     Int
-  update_date    DateTime
-  InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  id                Int           @id @default(autoincrement())
+  inventory_item_id Int
+  change_quantity   Int
+  update_type       UpdateType
+  updated_by        Int
+  update_date       DateTime
+  InventoryItem     InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
 model StockTakes {
-  id          Int       @id @default(autoincrement())
-  type        StockTakeType
-  status      StockTakeStatus
-  start_date  DateTime
-  end_date    DateTime?
-  StockTakeDetail StockTakeDetail[]
+  id                 Int                  @id @default(autoincrement())
+  type               StockTakeType
+  status             StockTakeStatus
+  start_date         DateTime
+  end_date           DateTime?
+  StockTakeDetail    StockTakeDetail[]
   StockTakeCommittee StockTakeCommittee[]
 }
 
 model StockTakeDetail {
-  id             Int       @id @default(autoincrement())
-  stock_take_id  Int
-  inventory_item_id        Int
-  system_quantity Int
+  id                Int           @id @default(autoincrement())
+  stock_take_id     Int
+  inventory_item_id Int
+  system_quantity   Int
   physical_quantity Int
-  variance       Int
-  comments       String?
-  StockTakes     StockTakes @relation(fields: [stock_take_id], references: [id])
-  InventoryItem InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  variance          Int
+  comments          String?
+  StockTakes        StockTakes    @relation(fields: [stock_take_id], references: [id])
+  InventoryItem     InventoryItem @relation(fields: [inventory_item_id], references: [id])
 }
 
 model StockTakeCommittee {
-  id           Int       @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   stock_take_id Int
-  member_id    Int
-  StockTakes   StockTakes @relation(fields: [stock_take_id], references: [id])
+  member_id     Int
+  StockTakes    StockTakes @relation(fields: [stock_take_id], references: [id])
 }
 
 enum ReceiptStatus {
@@ -435,6 +435,7 @@ enum StockTakeStatus {
   Completed
   Cancelled
 }
+
 enum SupplierStatus {
   Active
   Inactive
