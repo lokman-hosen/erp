@@ -33,6 +33,10 @@ export default [
     key: '/static-page',
   },
   {
+    label: 'Page',
+    key: '/page',
+  },
+  {
     label: 'Faqs',
     key: '/faqs',
   },

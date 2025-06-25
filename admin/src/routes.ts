@@ -17,6 +17,7 @@ const staticPageDetail = lazy(() => import('./pages/static-page/details'));
 const faqs = lazy(() => import('./pages/Faqs'));
 const testimonials = lazy(() => import('./pages/Testimonials'));
 const testimonialDetail = lazy(() => import('./pages/Testimonials/details'));
+const page = lazy(() => import('./pages/page'));
 
 const routes = [
   { path: '/', element: Dashboard },
@@ -33,6 +34,7 @@ const routes = [
   { path: '/faqs', element: faqs },
   { path: '/testimonials', element: testimonials },
   { path: '/testimonial/details/:id', element: testimonialDetail },
+  { path: '/page', element: page },
 ];
 
 export default routes;
