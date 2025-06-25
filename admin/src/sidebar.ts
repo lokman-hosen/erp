@@ -13,6 +13,10 @@ export default [
     key: '/admin-user'
   },
   {
+    label: 'Newsletter',
+    key: '/newsletter'
+  },
+  {
     label: 'Products',
     key: '/products',
   },
