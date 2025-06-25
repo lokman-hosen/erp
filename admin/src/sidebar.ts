@@ -29,6 +29,10 @@ export default [
     key: '/blogs',
   },
   {
+    label: 'Good Receipt',
+    key: '/good-receipt',
+  },
+  {
     label: 'Users',
     key: '/users',
   },
