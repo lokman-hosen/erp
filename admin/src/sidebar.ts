@@ -37,6 +37,10 @@ export default [
     key: '/page',
   },
   {
+    label: 'Supplier',
+    key: '/supplier',
+  },
+  {
     label: 'Faqs',
     key: '/faqs',
   },
