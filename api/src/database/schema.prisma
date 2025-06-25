@@ -314,7 +314,7 @@ model InventoryMovement {
 }
 
 model ApprovedPriceList {
-  id                Int           @id @default(autoincrement())
+  id                Int            @id @default(autoincrement())
   inventory_item_id Int
   supplier_id       Int
   price             Float
@@ -328,7 +328,7 @@ model StockValuation {
   valuation_method    ValuationMethod
   last_valuation_date DateTime
   valuation_amount    Float
-  InventoryItem       InventoryItem?   @relation(fields: [inventory_item_id], references: [id])
+  InventoryItem       InventoryItem?  @relation(fields: [inventory_item_id], references: [id])
 }
 
 model Disposal {
@@ -338,11 +338,11 @@ model Disposal {
   reason            String
   approval_status   ApprovalStatus
   disposal_code     String
-  InventoryItem     InventoryItem?  @relation(fields: [inventory_item_id], references: [id])
+  InventoryItem     InventoryItem? @relation(fields: [inventory_item_id], references: [id])
 }
 
 model InventoryUpdate {
-  id                Int           @id @default(autoincrement())
+  id                Int            @id @default(autoincrement())
   inventory_item_id Int
   change_quantity   Int
   update_type       UpdateType
@@ -362,7 +362,7 @@ model StockTakes {
 }
 
 model StockTakeDetail {
-  id                Int           @id @default(autoincrement())
+  id                Int            @id @default(autoincrement())
   stock_take_id     Int
   inventory_item_id Int
   system_quantity   Int
@@ -374,7 +374,7 @@ model StockTakeDetail {
 }
 
 model StockTakeCommittee {
-  id            Int        @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   stock_take_id Int
   member_id     Int
   StockTakes    StockTakes? @relation(fields: [stock_take_id], references: [id])

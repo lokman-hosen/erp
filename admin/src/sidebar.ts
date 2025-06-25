@@ -33,6 +33,10 @@ export default [
     key: '/good-receipt',
   },
   {
+    label: 'Inspection Report',
+    key: '/inspection-report',
+  },
+  {
     label: 'Users',
     key: '/users',
   },
