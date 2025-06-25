@@ -73,6 +73,10 @@ export default [
     key: '/inventory-item',
   },
   {
+    label: 'Inventory Movement',
+    key: '/inventory-movement',
+  },
+  {
     label: 'Stock Location',
     key: '/stock-location',
   },
