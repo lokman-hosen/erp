@@ -17,6 +17,10 @@ export default [
     key: '/newsletter'
   },
   {
+    label: 'Address',
+    key: '/address'
+  },
+  {
     label: 'Products',
     key: '/products',
   },
