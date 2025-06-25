@@ -301,16 +301,16 @@ model StockLocation {
 }
 
 model InventoryMovement {
-  id                Int           @id @default(autoincrement())
+  id                Int            @id @default(autoincrement())
   inventory_item_id Int
   from_location_id  Int
   to_location_id    Int
   quantity          Int
   movement_date     DateTime
   movement_type     MovementType
-  InventoryItem     InventoryItem @relation(fields: [inventory_item_id], references: [id])
-  FromLocation      StockLocation @relation("FromLocation", fields: [from_location_id], references: [id])
-  ToLocation        StockLocation @relation("ToLocation", fields: [to_location_id], references: [id])
+  InventoryItem     InventoryItem? @relation(fields: [inventory_item_id], references: [id])
+  FromLocation      StockLocation? @relation("FromLocation", fields: [from_location_id], references: [id])
+  ToLocation        StockLocation? @relation("ToLocation", fields: [to_location_id], references: [id])
 }
 
 model ApprovedPriceList {
@@ -319,7 +319,7 @@ model ApprovedPriceList {
   supplier_id       Int
   price             Float
   effective_date    DateTime
-  InventoryItem     InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  InventoryItem     InventoryItem? @relation(fields: [inventory_item_id], references: [id])
 }
 
 model StockValuation {
@@ -328,7 +328,7 @@ model StockValuation {
   valuation_method    ValuationMethod
   last_valuation_date DateTime
   valuation_amount    Float
-  InventoryItem       InventoryItem   @relation(fields: [inventory_item_id], references: [id])
+  InventoryItem       InventoryItem?   @relation(fields: [inventory_item_id], references: [id])
 }
 
 model Disposal {
@@ -338,7 +338,7 @@ model Disposal {
   reason            String
   approval_status   ApprovalStatus
   disposal_code     String
-  InventoryItem     InventoryItem  @relation(fields: [inventory_item_id], references: [id])
+  InventoryItem     InventoryItem?  @relation(fields: [inventory_item_id], references: [id])
 }
 
 model InventoryUpdate {
@@ -348,7 +348,7 @@ model InventoryUpdate {
   update_type       UpdateType
   updated_by        Int
   update_date       DateTime
-  InventoryItem     InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  InventoryItem     InventoryItem? @relation(fields: [inventory_item_id], references: [id])
 }
 
 model StockTakes {
@@ -369,15 +369,15 @@ model StockTakeDetail {
   physical_quantity Int
   variance          Int
   comments          String?
-  StockTakes        StockTakes    @relation(fields: [stock_take_id], references: [id])
-  InventoryItem     InventoryItem @relation(fields: [inventory_item_id], references: [id])
+  StockTakes        StockTakes?    @relation(fields: [stock_take_id], references: [id])
+  InventoryItem     InventoryItem? @relation(fields: [inventory_item_id], references: [id])
 }
 
 model StockTakeCommittee {
   id            Int        @id @default(autoincrement())
   stock_take_id Int
   member_id     Int
-  StockTakes    StockTakes @relation(fields: [stock_take_id], references: [id])
+  StockTakes    StockTakes? @relation(fields: [stock_take_id], references: [id])
 }
 
 enum ReceiptStatus {

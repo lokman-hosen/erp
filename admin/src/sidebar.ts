@@ -56,6 +56,10 @@ export default [
     label: 'Stock Location',
     key: '/stock-location',
   },
+  {
+    label: 'Stock Takes',
+    key: '/stock-takes',
+  },
   /*{
     label: 'Client',
     key: '/client-menu',
