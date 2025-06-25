@@ -1,18 +1,20 @@
 /* eslint-disable */
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Col, Row, Space, Typography } from "antd";
 import React, { useState } from "react";
+import { Button, Col, Row, Space, Typography } from "antd";
+
+import { PlusOutlined } from "@ant-design/icons";
+
 import { getHeader } from "~/utility/helmet";
 import DrawerForm from "./_DrawerForm";
-import TableGrid from "./_TableGrid";
+import TableGrid from './_TableGrid'
 
 const { Title } = Typography;
 
 const model = 'User';
-const title = 'Users';
-const drawerTitle = 'Update User';
+const title = 'User\'s';
+const drawerTitle = 'Add User';
 
-const User = () => {
+const AdminUser = () => {
 
 
 
@@ -64,8 +66,8 @@ const User = () => {
                 onSubmitSuccess={onSubmitSuccess}
             />
             <Space wrap style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Title level={2}>{title}</Title>
-                {/* <Button type="primary" icon={<PlusOutlined />} onClick={showDrawer}>Add New</Button> */}
+                <Title level={1}>{title}</Title>
+                <Button type="primary" icon={<PlusOutlined />} onClick={showDrawer}>Add New</Button>
             </Space>
             <Row gutter={16}>
                 <Col className="gutter-row" span={24}>
@@ -81,4 +83,4 @@ const User = () => {
     )
 };
 
-export default User
+export default AdminUser

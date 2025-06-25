@@ -140,7 +140,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                         label="Password"
                         name="password"
                     >
-                        <Input />
+                        <Input type="password" />
                     </Form.Item>
                     <Form.Item
                         label="Phone"

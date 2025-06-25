@@ -5,35 +5,31 @@ import { useQuery } from '@tanstack/react-query';
 import {
   Button,
   Card,
-  Descriptions,
-  Divider,
   Image,
   Space,
   Spin,
-  Tag,
   Typography
 } from 'antd';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import UserReferral from '~/components/user-referral/UserReferral';
-import QuizzAnswers from '~/old-pages/quizz-answers';
-import { post } from '~/services/api/api';
-import { API_CRUD_FIND_WHERE } from '~/services/api/endpoints';
-import DrawerForm from './_DrawerForm';
+import { get } from '~/services/api/api';
+import { API_CRUD } from '~/services/api/endpoints';
+import DrawerForm from "./_DrawerForm";
 const { Title } = Typography;
 
 
-const UserDetails = () => {
+const BlogDetails = () => {
+  const { Meta } = Card;
+  const drawerTitle = 'Update Blog';
 
-  const drawerTitle = 'Update User';
-  const model = 'User';
-
-  const BASE_URL = '/user';
-  const navigate = useNavigate();
+  const model = 'Blog';
   const [open, setOpen] = useState(false);
   const [editedItem, setEditedItem] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [trigger, setTrigger] = useState(0);
+
+  const BASE_URL = '/blog';
+  const navigate = useNavigate();
 
   const { id } = useParams(); // read id parameter from the url
 
@@ -45,25 +41,23 @@ const UserDetails = () => {
     refetch,
     isSuccess
   } = useQuery({
-    queryKey: [`user-details-${id}`],
-    queryFn: () => post(`${API_CRUD_FIND_WHERE}?model=User`, {
-      "where": {
-        "id": Number(id)
-      },
-    }),
-  })
+    queryKey: [`blog-details-${id}`],
+    queryFn: () => get(`${API_CRUD}/${id}?model=Blog`),
+  });
 
 
   if (isLoading || !isSuccess || details === undefined) {
     return <Spin />
   }
-  // profile_photo
+
+
 
   const onClickEdit = (record: any) => {
     setIsEditing(true);
     setEditedItem(record);
     setOpen(true);
   }
+
 
   const showDrawer = () => {
     setOpen(true);
@@ -73,7 +67,6 @@ const UserDetails = () => {
 
   const onClose = () => {
     setOpen(false);
-    // refetch()
   };
 
   const onSubmitSuccess = (isEditing: boolean) => {
@@ -91,8 +84,6 @@ const UserDetails = () => {
     }
   }
 
-  console.log(details);
-
   return (
     <>
       <DrawerForm
@@ -104,33 +95,34 @@ const UserDetails = () => {
         editedItem={editedItem}
         onSubmitSuccess={onSubmitSuccess}
       />
+      <Space wrap style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Title level={2}>Blog Details</Title>
+        <Button type="primary" onClick={() => onClickEdit(details?.data)}  icon={<EditOutlined />} >Edit</Button>
+      </Space>
       <Card bordered={true} style={{ width: "100%" }}>
-        <Space wrap style={{ display: 'flex', justifyContent: 'end' }}>
-          <Button type="primary" onClick={() => onClickEdit(details?.data[0])} icon={<EditOutlined />} >Edit</Button>
+        <Space wrap style={{ display: 'flex', alignItems: "start" }}>
+          <Image
+            style={{ borderRadius: "50%" }}
+            width={100}
+            src={details?.data?.author_image}
+          />
+          <h3>{details?.data?.author_name}</h3>
         </Space>
-        <Divider>
-          <Image height={200} src={details?.data[0]?.profile_photo}></Image>
-        </Divider>
-        <Descriptions>
-          <Descriptions.Item label="Name">{details?.data[0]?.first_name} {details?.data[0]?.last_name}</Descriptions.Item>
-          <Descriptions.Item label="Email">{details?.data[0]?.email}</Descriptions.Item>
-          <Descriptions.Item label="Phone">{details?.data[0]?.phone}</Descriptions.Item>
-          <Descriptions.Item label="Post code">{details?.data[0]?.postal_code}</Descriptions.Item>
-          <Descriptions.Item label="State">{details?.data[0]?.state}</Descriptions.Item>
-          <Descriptions.Item label="City">{details?.data[0]?.city}</Descriptions.Item>
-          <Descriptions.Item label="Country">{details?.data[0]?.country}</Descriptions.Item>
-          <Descriptions.Item label="Address">{details?.data[0]?.address}</Descriptions.Item>
-          <Descriptions.Item label="Short description">{details?.data[0]?.short_desc}</Descriptions.Item>
-
-          <Descriptions.Item label="Is Verified">{details?.data[0]?.is_verified ? <Tag color="green">Yes</Tag> : <Tag color="red">No</Tag>}</Descriptions.Item>
-          <br />
-          <br />
-          <Descriptions.Item span={3} label="Description">{details?.data[0]?.description}</Descriptions.Item>
-        </Descriptions>
+        <br />
+        <Card
+          bordered={false}
+          style={{ width: "100%" }}
+          cover={<img alt="example" src={details?.data?.image} style={{ maxWidth: "500px", maxHeight: "500px" }} />}
+        >
+          {/* <Meta title={details?.data?.title} description={details?.data?.content} /> */}
+          <Meta title={details?.data?.title} description={<div
+            dangerouslySetInnerHTML={{ __html: details?.data?.content }}
+          />} />
+        </Card>
       </Card>
 
     </>
   );
 };
 
-export default UserDetails;
+export default BlogDetails;

@@ -3,6 +3,7 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button, Popconfirm, Space, Table, Tag, message } from "antd";
+import Title from "antd/es/typography/Title";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { deleteApi, get } from "~/services/api/api";
@@ -12,17 +13,21 @@ import { getUrlForModel } from "~/services/api/endpoints";
 export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
     const KEY = `all-${model}`;
 
-        const {
-            isLoading,
-            isError,
-            error,
-            data: fetchData,
-            refetch,
-        } = useQuery({
-            queryKey: [KEY],
-            queryFn: () => get(getUrlForModel(model)),
-            staleTime: 0,
-        });
+    const {
+        isLoading,
+        isError,
+        error,
+        data: fetchData,
+        refetch,
+    } = useQuery({
+        queryKey: [KEY],
+        queryFn: () => get(getUrlForModel(model)),
+        staleTime: 0,
+    });
+
+
+
+
 
     useEffect(() => {
         if (trigger) {
@@ -49,30 +54,33 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
     const columns = [
         {
             title: 'Name',
-            render: (record: any) => {
-                return record?.first_name + " " + record?.last_name
-            },
+            dataIndex: 'name'
         },
         {
             title: 'Email',
             dataIndex: 'email'
         },
         {
-            title: 'City',
-            dataIndex: 'city'
+            title: 'Phone',
+            dataIndex: 'phone'
+        },
+        {
+            title: 'Status',
+            dataIndex: 'status'
         },
         {
             title: 'Is Verified',
-            render: (record: any) => {
-                if (record.is_verified) {
-                    return <Tag color="green">Yes</Tag>;
-                }
-                return <Tag color="orange">No</Tag>;
-            },
+            dataIndex: 'is_verified',
+            render: (isVerified: boolean) => (
+                <Tag color={isVerified ? 'green' : 'red'}>
+                    {isVerified ? 'Verified' : 'Not Verified'}
+                </Tag>
+            ),
         },
         {
             title: 'Actions',
             render: (record: any) => {
+                // console.log(record)
                 return <Space>
                     <Button onClick={() => onClickEdit(record)} type={'link'}><EditOutlined /></Button>
                     <Popconfirm
@@ -100,10 +108,13 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
     }
 
     return (
-        <Table
-            rowKey="id"
-            loading={isLoading}
-            columns={columns}
-            dataSource={fetchData?.data} />
+        <>
+            <Table
+                rowKey="id"
+                loading={isLoading}
+                columns={columns}
+                dataSource={fetchData?.data}
+            />
+        </>
     );
 }
