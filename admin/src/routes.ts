@@ -20,6 +20,7 @@ const testimonialDetail = lazy(() => import('./pages/Testimonials/details'));
 const page = lazy(() => import('./pages/page'));
 const Supplier = lazy(() => import('./pages/supplier'));
 const InventoryItem = lazy(() => import('./pages/inventory-item'));
+const StockLocation = lazy(() => import('./pages/stock-location'));
 
 const routes = [
   { path: '/', element: Dashboard },
@@ -39,6 +40,7 @@ const routes = [
   { path: '/page', element: page },
   { path: '/supplier', element: Supplier },
   { path: '/inventory-item', element: InventoryItem },
+  { path: '/stock-location', element: StockLocation },
 ];
 
 export default routes;
