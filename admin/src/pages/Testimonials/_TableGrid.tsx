@@ -48,6 +48,10 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
 
     const columns = [
         {
+            title: 'Short Order',
+            dataIndex: 'sort_order'
+        },
+        {
             title: 'User Name',
             dataIndex: 'user_name'
         },
@@ -55,10 +59,7 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
             title: 'City',
             dataIndex: 'city'
         },
-        {
-            title: 'Short Order',
-            dataIndex: 'sort_order'
-        },
+
         // {
         //     title: 'Is Student',
         //     render: (record: any) => {

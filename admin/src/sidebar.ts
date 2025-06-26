@@ -5,40 +5,13 @@ import { DashboardOutlined, HomeOutlined, MailOutlined } from '@ant-design/icons
 export default [
   {
     label: 'Dashboard',
-    // icon: MailOutlined,
     key: '/',
   },
+
+  // Management
   {
     label: 'Admin User',
-    key: '/admin-user'
-  },
-  {
-    label: 'Newsletter',
-    key: '/newsletter'
-  },
-  {
-    label: 'Address',
-    key: '/address'
-  },
-  {
-    label: 'Products',
-    key: '/products',
-  },
-  {
-    label: 'Blogs',
-    key: '/blogs',
-  },
-  {
-    label: 'Good Receipt',
-    key: '/good-receipt',
-  },
-  {
-    label: 'Goods Return',
-    key: '/goods-return',
-  },
-  {
-    label: 'Inspection Report',
-    key: '/inspection-report',
+    key: '/admin-user',
   },
   {
     label: 'Users',
@@ -48,17 +21,23 @@ export default [
     label: 'Sitting',
     key: '/sitting',
   },
+
+  // Content
   {
-    label: 'Static Pate',
-    key: '/static-page',
+    label: 'Blogs',
+    key: '/blogs',
   },
+  {
+    label: 'Newsletter',
+    key: '/newsletter',
+  },
+  // {
+  //   label: 'Static Page',
+  //   key: '/static-page',
+  // },
   {
     label: 'Page',
     key: '/page',
-  },
-  {
-    label: 'Supplier',
-    key: '/supplier',
   },
   {
     label: 'Faqs',
@@ -68,6 +47,22 @@ export default [
     label: 'Testimonial',
     key: '/testimonials',
   },
+
+  // Products
+  {
+    label: 'Products',
+    key: '/products',
+  },
+  {
+    label: 'Approved Price',
+    key: '/approved-price',
+  },
+  {
+    label: 'Supplier',
+    key: '/supplier',
+  },
+
+  // Inventory
   {
     label: 'Inventory Item',
     key: '/inventory-item',
@@ -77,21 +72,12 @@ export default [
     key: '/inventory-movement',
   },
   {
-    label: 'Approved Price',
-    key: '/approved-price',
-  },
-  {
     label: 'Stock Valuation',
     key: '/stock-valuation',
   },
-
   {
     label: 'Stock Location',
     key: '/stock-location',
-  },
-  {
-    label: 'Disposal',
-    key: '/disposal',
   },
   {
     label: 'Stock Takes',
@@ -101,14 +87,41 @@ export default [
     label: 'Stock Take Details',
     key: '/stock-take-details',
   },
+
+  // Logistics
+  {
+    label: 'Good Receipt',
+    key: '/good-receipt',
+  },
+  {
+    label: 'Goods Return',
+    key: '/goods-return',
+  },
+
+  // Inspection
+  {
+    label: 'Inspection Report',
+    key: '/inspection-report',
+  },
   {
     label: 'Inspection Committee',
     key: '/committee',
   },
-  /*{
+
+  // Miscellaneous
+  {
+    label: 'Address',
+    key: '/address',
+  },
+  {
+    label: 'Disposal',
+    key: '/disposal',
+  },
+
+  /*
+  {
     label: 'Client',
     key: '/client-menu',
-    // icon: DashboardOutlined,
     children: [
       {
         label: 'All Client',
@@ -119,5 +132,7 @@ export default [
         key: '/client/create',
       },
     ],
-  }*/
+  }
+  */
 ];
+

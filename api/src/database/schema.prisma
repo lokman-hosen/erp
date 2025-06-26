@@ -258,6 +258,7 @@ model Supplier {
   status         SupplierStatus
   created_at     DateTime       @default(now())
   updated_at     DateTime       @updatedAt
+  GoodsReturn    GoodsReturn[]
 }
 
 model GoodsReturn {
@@ -267,6 +268,7 @@ model GoodsReturn {
   reason          String
   supplier_id     Int
   GoodReceipt     GoodReceipt @relation(fields: [good_receipt_id], references: [id])
+  Supplier        Supplier    @relation(fields: [supplier_id], references: [id], onDelete: Cascade)
 }
 
 model InventoryItem {

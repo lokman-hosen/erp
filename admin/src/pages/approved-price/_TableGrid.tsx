@@ -68,7 +68,8 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
 
         {
             title: 'Price',
-            dataIndex: 'price'
+            dataIndex: 'price',
+            render: (data) => <>৳ {data}</>
         },
         // {
         //     title: 'Movement Type',

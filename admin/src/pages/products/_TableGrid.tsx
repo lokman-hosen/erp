@@ -67,6 +67,7 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
     {
       title: 'Price',
       dataIndex: 'price',
+      render: (data) => <>৳ {data}</>
     },
     {
       title: 'Quantity',
@@ -77,8 +78,9 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
       dataIndex: 'stock_status',
     },
     {
-      title: 'Const Per Item',
+      title: 'Cost Per Item',
       dataIndex: 'cost_pert_item',
+      render: (data) => <>৳ {data}</>
     },
     {
       title: 'Actions',
@@ -92,7 +94,7 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
               title="Delete this item?"
               description="This action cannot be undone"
               onConfirm={() => handleDeleteClient(record.id)}
-              onCancel={() => {}}
+              onCancel={() => { }}
               okText="Yes"
               cancelText="No"
             >

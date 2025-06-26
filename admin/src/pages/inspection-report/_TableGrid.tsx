@@ -7,24 +7,44 @@ import Title from "antd/es/typography/Title";
 import dayjs from "dayjs";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { deleteApi, get } from "~/services/api/api";
-import { getUrlForModel } from "~/services/api/endpoints";
+import { deleteApi, get, post } from "~/services/api/api";
+import { API_CRUD_FIND_WHERE, getUrlForModel } from "~/services/api/endpoints";
 
 // @ts-ignore
 export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
     const KEY = `all-${model}`;
 
+    // const {
+    //     isLoading,
+    //     isError,
+    //     error,
+    //     data: fetchData,
+    //     refetch,
+    // } = useQuery({
+    //     queryKey: [KEY],
+    //     queryFn: () => get(getUrlForModel(model)),
+    //     staleTime: 0,
+
+    // });
+
     const {
         isLoading,
         isError,
-        error,
         data: fetchData,
         refetch,
     } = useQuery({
-        queryKey: [KEY],
-        queryFn: () => get(getUrlForModel(model)),
-        staleTime: 0,
-
+        queryKey: [`get-${model}-list`],
+        queryFn: async () =>
+            await post(`${API_CRUD_FIND_WHERE}?model=${model}`, {
+                include: {
+                    InspectionCommittee: true,
+                },
+                refetchOnWindowFocus: false,
+            }),
+        select(data) {
+            // console.log(data)
+            return data?.data ?? [];
+        },
     });
 
     useEffect(() => {
@@ -55,8 +75,9 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
             dataIndex: 'good_receipt_id'
         },
         {
-            title: 'Inspection Committee Id',
-            dataIndex: 'inspection_committee_id'
+            title: 'Inspection Committee',
+            dataIndex: 'inspection_committee_id',
+            render: (_, record)=><>{record?.InspectionCommittee?.name}</>
         },
         {
             title: 'Inspection Date',
@@ -106,7 +127,7 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
                 rowKey="id"
                 loading={isLoading}
                 columns={columns}
-                dataSource={fetchData?.data}
+                dataSource={fetchData}
             />
         </>
     );

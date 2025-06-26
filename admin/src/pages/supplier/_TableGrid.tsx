@@ -68,16 +68,16 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
             title: 'Contact Person',
             dataIndex: 'contact_person'
         },
+        // {
+        //     title: 'Status',
+        //     dataIndex: 'status'
+        // },
         {
             title: 'Status',
-            dataIndex: 'status'
-        },
-        {
-            title: 'Is Verified',
-            dataIndex: 'is_verified',
-            render: (isVerified: boolean) => (
-                <Tag color={isVerified ? 'green' : 'red'}>
-                    {isVerified ? 'Verified' : 'Not Verified'}
+            dataIndex: 'status',
+            render: (status) => (
+                <Tag color={status === 'Active'  ? 'green' : 'red'}>
+                    {status  == 'Active' ? 'Active' : 'Inactive'}
                 </Tag>
             ),
         },

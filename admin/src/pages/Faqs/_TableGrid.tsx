@@ -54,14 +54,14 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
             title: 'Answer',
             dataIndex: 'answer'
         },
-        {
-            title: 'Type',
-            dataIndex: 'type'
-        },
-        {
-            title: 'Sort Order',
-            dataIndex: 'sort_order'
-        },
+        // {
+        //     title: 'Type',
+        //     dataIndex: 'type'
+        // },
+        // {
+        //     title: 'Sort Order',
+        //     dataIndex: 'sort_order'
+        // },
         {
             title: 'Actions',
             render: (record: any) => {

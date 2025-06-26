@@ -54,14 +54,14 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
             title: 'Permalink',
             dataIndex: 'permalink'
         },
-        {
-            title: 'Description',
-            dataIndex: 'description'
-        },
-        {
-            title: 'Content',
-            dataIndex: 'content'
-        },
+        // {
+        //     title: 'Description',
+        //     dataIndex: 'description'
+        // },
+        // {
+        //     title: 'Content',
+        //     dataIndex: 'content'
+        // },
         {
             title: 'Status',
             dataIndex: 'status'
