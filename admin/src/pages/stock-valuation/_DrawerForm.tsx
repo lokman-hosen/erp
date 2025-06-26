@@ -8,7 +8,7 @@ import { get, patch, post } from "~/services/api/api";
 import { getUrlForModel } from "~/services/api/endpoints";
 
 const InventoryItem = "InventoryItem";
-const Supplier = "Supplier";
+// const Supplier = "Supplier";
 
 
 // @ts-ignore
@@ -26,19 +26,19 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
             return data?.data ?? []
         }
     });
-    const {
-        data: supplierData,
+    // const {
+    //     data: supplierData,
 
-    } = useQuery({
-        queryKey: ["get-all", Supplier],
-        queryFn: () => get(getUrlForModel(Supplier)),
-        staleTime: 0,
-        select: (data) => {
-            return data?.data ?? []
-        }
-    });
+    // } = useQuery({
+    //     queryKey: ["get-all", Supplier],
+    //     queryFn: () => get(getUrlForModel(Supplier)),
+    //     staleTime: 0,
+    //     select: (data) => {
+    //         return data?.data ?? []
+    //     }
+    // });
 
-    console.log("location data, ", supplierData)
+    // console.log("location data, ", supplierData)
     console.log("InventoryData data, ", InventoryData)
 
 
@@ -71,22 +71,12 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
 
         // return console.log("formvalues", formValues)
 
-        if (formValues?.price) {
-            formValues.price = Number(formValues.price)
+        if (formValues?.valuation_amount) {
+            formValues.valuation_amount = Number(formValues.valuation_amount)
         }
-
-        // if (formValues?.supplier_id) {
-        //     formValues.supplier_id = Number(formValues.supplier_id)
-        // }
-        // if (formValues?.created_by) {
-        //     formValues.created_by = Number(formValues.created_by)
-        // }
-
-        if (formValues.effective_date !== undefined && formValues.effective_date) {
-            formValues.effective_date = formValues.effective_date?.toISOString() ?? null
+        if (formValues.last_valuation_date !== undefined && formValues.last_valuation_date) {
+            formValues.last_valuation_date = formValues.last_valuation_date?.toISOString() ?? null
         }
-
-
         if (isEditing) {
             updateData.mutate({
                 ...formValues,
@@ -108,9 +98,9 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
         if (editedItem) {
             const val = {
                 inventory_item_id: editedItem.inventory_item_id,
-                supplier_id: editedItem.supplier_id,
-                price: editedItem.price,
-                effective_date: editedItem.effective_date ? dayjs(editedItem.effective_date) : null,
+                valuation_method: editedItem.valuation_method,
+                valuation_amount: editedItem.valuation_amount,
+                last_valuation_date: editedItem.last_valuation_date ? dayjs(editedItem.last_valuation_date) : null,
 
             };
             form.setFieldsValue(val);
@@ -157,28 +147,29 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                             <Select.Option value="Rejected">Rejected</Select.Option> */}
                         </Select>
                     </Form.Item>
-                    <Form.Item label="Supplier" name="supplier_id">
+                    <Form.Item label="Valuation Method" name="valuation_method">
                         <Select placeholder="Select Status" showSearch>
-                            {
+                            {/* {
                                 supplierData?.map((data, index) => (
                                     <Select.Option value={data?.id}>{data?.name}</Select.Option>
                                 ))
-                            }
+                            } */}
 
-                            {/* <Select.Option value="Pending">Pending</Select.Option>
-                            <Select.Option value="Approved">Approved</Select.Option>
-                            <Select.Option value="Rejected">Rejected</Select.Option> */}
+                            <Select.Option value="FIFO">FIFO</Select.Option>
+                            <Select.Option value="LIFO">LIFO</Select.Option>
+                            <Select.Option value="SimpleAverage">SimpleAverage</Select.Option>
+                            <Select.Option value="WeightedAverage">WeightedAverage</Select.Option>
                         </Select>
                     </Form.Item>
                     <Form.Item
-                        label="Price"
-                        name="price"
+                        label="Valuation Amount"
+                        name="valuation_amount"
                     >
                         <Input type="number" />
                     </Form.Item>
                     <Form.Item
-                        label="Effective Date"
-                        name="effective_date"
+                        label="Last Date"
+                        name="last_valuation_date"
                     >
                         <DatePicker style={{ width: '100%' }} />
                     </Form.Item>

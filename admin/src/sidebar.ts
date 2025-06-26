@@ -81,6 +81,10 @@ export default [
     key: '/approved-price',
   },
   {
+    label: 'Stock Valuation',
+    key: '/stock-valuation',
+  },
+  {
     label: 'Stock Location',
     key: '/stock-location',
   },

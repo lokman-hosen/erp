@@ -30,6 +30,7 @@ const InspectionReport = lazy(() => import('./pages/inspection-report'));
 const GoodsReturn = lazy(() => import('./pages/goods-return'));
 const InventoryMovement = lazy(() => import('./pages/inventory-movement'));
 const ApprovedPriceList = lazy(() => import('./pages/approved-price'));
+const StockValuation = lazy(() => import('./pages/stock-valuation'));
 
 const routes = [
   { path: '/', element: Dashboard },
@@ -59,6 +60,7 @@ const routes = [
   { path: '/inspection-report', element: InspectionReport },
   { path: '/inventory-movement', element: InventoryMovement },
   { path: '/approved-price', element: ApprovedPriceList },
+  { path: '/stock-valuation', element: StockValuation },
 ];
 
 export default routes;
