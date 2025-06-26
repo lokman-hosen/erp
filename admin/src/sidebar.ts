@@ -84,9 +84,14 @@ export default [
     label: 'Stock Valuation',
     key: '/stock-valuation',
   },
+
   {
     label: 'Stock Location',
     key: '/stock-location',
+  },
+  {
+    label: 'Disposal',
+    key: '/disposal',
   },
   {
     label: 'Stock Takes',
