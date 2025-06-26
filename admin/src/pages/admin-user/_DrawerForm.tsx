@@ -1,25 +1,17 @@
 /* eslint-disable */
 import { UploadOutlined } from "@ant-design/icons";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { Button, Checkbox, Divider, Drawer, Form, Image, Input, Select, Space, Switch, Upload, message } from 'antd';
-import TextArea from "antd/es/input/TextArea";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import ReactQuill from 'react-quill';
+import { useMutation } from "@tanstack/react-query";
+import { Button, Drawer, Form, Input, Upload, message } from 'antd';
+import { useEffect } from "react";
 import 'react-quill/dist/quill.snow.css';
-import { patch, post, put } from "~/services/api/api";
+import { patch, post } from "~/services/api/api";
 import { API_FILE_UPLOAD, getUrlForModel } from "~/services/api/endpoints";
-import { getUrlFromUploadComponent } from "~/utility/upload";
 
 
 // @ts-ignore
 export default function DrawerForm({ title, model, onClose, open, onSubmitSuccess, isEditing, editedItem, ...props }) {
 
     const [form] = Form.useForm();
-
-
-
-
     const createData = useMutation({
         mutationFn: async (data: any) => await post(getUrlForModel(model), data.data),
         onSuccess: (response) => {
@@ -32,7 +24,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
         },
     });
 
-    const updateData:any = useMutation({
+    const updateData: any = useMutation({
         mutationFn: async (data: any) => await patch(getUrlForModel(model, data.id), data),
         onSuccess: (response) => {
             message.success('Updated Successfully');
@@ -46,11 +38,15 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
 
     const onFinish = async (formValues: any) => {
 
+
+
+
         if (formValues?.profile_photo) {
             const img_url = formValues?.profile_photo[0]?.response?.url ?? formValues?.profile_photo[0]?.thumbUrl;
             formValues.profile_photo = img_url;
         }
 
+        return console.log("formvalues", formValues.profile_photo)
 
         if (isEditing) {
             updateData.mutate({
@@ -153,7 +149,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
 
                     <Form.Item
                         name="profile_photo"
-                        label="Cover Image"
+                        label="Profile Photo"
                         rules={[{ required: false, message: 'Required' }]}
                         valuePropName="fileList"
                         getValueFromEvent={normFile}
