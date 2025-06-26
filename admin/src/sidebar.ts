@@ -98,6 +98,10 @@ export default [
     key: '/stock-takes',
   },
   {
+    label: 'Stock Take Details',
+    key: '/stock-take-details',
+  },
+  {
     label: 'Inspection Committee',
     key: '/committee',
   },
