@@ -77,6 +77,10 @@ export default [
     key: '/inventory-movement',
   },
   {
+    label: 'Approved Price',
+    key: '/approved-price',
+  },
+  {
     label: 'Stock Location',
     key: '/stock-location',
   },
