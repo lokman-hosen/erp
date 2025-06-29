@@ -1,10 +1,11 @@
 /* eslint-disable */
 
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button, Popconfirm, Space, Table, Tag, message } from "antd";
 import dayjs from "dayjs";
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { deleteApi, get } from "~/services/api/api";
 import { getUrlForModel } from "~/services/api/endpoints";
 
@@ -108,6 +109,11 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
                     >
                         <Button danger type={'link'}><DeleteOutlined /></Button>
                     </Popconfirm>
+                    <Link to={`/inventory-item/details/${record.id}`}>
+                        <Button type="primary" ghost>
+                            <EyeOutlined />
+                        </Button>
+                    </Link>
                 </Space>
             },
         }

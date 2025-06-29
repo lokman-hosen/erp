@@ -56,24 +56,6 @@ const SupplierDetailsPage = () => {
     refetchOnWindowFocus: false,
   });
 
-  // // Fetch related goods returns
-  // const { data: goodsReturns } = useQuery({
-  //   queryKey: ['supplier-goods-returns', id],
-  //   queryFn: async () =>
-  //     await post(`${API_CRUD_FIND_WHERE}?model=goodsReturns`, {
-  //       where: {
-  //         supplier_id: Number(id)
-  //       },
-  //       include: {
-  //         GoodReceipt: true
-  //       }
-  //     }),
-  //   select(data) {
-  //     return data?.data ?? [];
-  //   },
-  //   enabled: !!supplier,
-  // });
-
 
   console.log("supplier data", supplier)
 

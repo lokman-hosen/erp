@@ -22,6 +22,7 @@ const page = lazy(() => import('./pages/page'));
 const Supplier = lazy(() => import('./pages/supplier'));
 const SupplierDetails = lazy(() => import('./pages/supplier/details'));
 const InventoryItem = lazy(() => import('./pages/inventory-item'));
+const InventoryItemDetails = lazy(() => import('./pages/inventory-item/details'));
 const StockLocation = lazy(() => import('./pages/stock-location'));
 const StockTakes = lazy(() => import('./pages/stock-takes'));
 const InspectionCommitte = lazy(() => import('./pages/inspection-committee'));
@@ -59,6 +60,7 @@ const routes = [
   { path: '/supplier', element: Supplier },
   { path: '/supplier/details/:id', element: SupplierDetails },
   { path: '/inventory-item', element: InventoryItem },
+  { path: '/inventory-item/details/:id', element: InventoryItemDetails },
   { path: '/stock-location', element: StockLocation },
   { path: '/stock-takes', element: StockTakes },
   { path: '/committee', element: InspectionCommitte },
