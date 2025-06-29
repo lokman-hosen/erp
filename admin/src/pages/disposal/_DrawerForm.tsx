@@ -149,7 +149,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                         </Select>
                     </Form.Item>
                     <Form.Item label="
-                    Status" name="approval_status">
+                    Approval Status" name="approval_status">
                         <Select placeholder="Select Status" showSearch>
                             {/* {
                                 supplierData?.map((data, index) => (

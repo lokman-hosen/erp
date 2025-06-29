@@ -87,6 +87,10 @@ export default [
     label: 'Stock Take Details',
     key: '/stock-take-details',
   },
+  {
+    label: 'Stock Take Committee',
+    key: '/stock-committee',
+  },
 
   // Logistics
   {

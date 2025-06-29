@@ -33,6 +33,7 @@ const ApprovedPriceList = lazy(() => import('./pages/approved-price'));
 const StockValuation = lazy(() => import('./pages/stock-valuation'));
 const Disposal = lazy(() => import('./pages/disposal'));
 const StockTakeDetails = lazy(() => import('./pages/stock-takes-details'));
+const StockTakeCommittee = lazy(() => import('./pages/stock-takes-committee'));
 
 const routes = [
   { path: '/', element: Dashboard },
@@ -65,6 +66,7 @@ const routes = [
   { path: '/stock-valuation', element: StockValuation },
   { path: '/disposal', element: Disposal },
   { path: '/stock-take-details', element: StockTakeDetails },
+  { path: '/stock-committee', element: StockTakeCommittee },
 ];
 
 export default routes;

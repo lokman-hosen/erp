@@ -149,11 +149,11 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
-                    <Form.Item label="Supplier" name="inventory_item_id">
+                    <Form.Item label="Inventory Item" name="inventory_item_id">
                         <Select placeholder="Select Status" showSearch>
                             {
                                 InventoryData?.map((data, index) => (
-                                    <Select.Option value={data?.id}>{data?.name}</Select.Option>
+                                    <Select.Option key={index} value={data?.id}>{data?.name}</Select.Option>
                                 ))
                             }
 
@@ -202,17 +202,18 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                         </Select>
                     </Form.Item>
 
-                    <Form.Item
-                        label="Quantity"
-                        name="quantity"
-                    >
-                        <Input type="number" />
-                    </Form.Item>
+
                     <Form.Item
                         label="Movement Date"
                         name="movement_date"
                     >
                         <DatePicker style={{ width: '100%' }} />
+                    </Form.Item>
+                    <Form.Item
+                        label="Quantity"
+                        name="quantity"
+                    >
+                        <Input type="number" />
                     </Form.Item>
                     <br />
 

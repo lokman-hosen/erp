@@ -16,12 +16,8 @@ import { getUrlFromUploadComponent } from "~/utility/upload";
 export default function DrawerForm({ title, model, onClose, open, onSubmitSuccess, isEditing, editedItem, ...props }) {
 
     const [form] = Form.useForm();
-
-
-
-
-    const createData = useMutation({
-        mutationFn: async (data) => await post(getUrlForModel(model), data.data),
+    const createData: any = useMutation({
+        mutationFn: async (data: any) => await post(getUrlForModel(model), data.data),
         onSuccess: (response) => {
             message.success('Saved Successfully');
             form.resetFields();
@@ -32,7 +28,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
         },
     });
 
-    const updateData = useMutation({
+    const updateData: any = useMutation({
         mutationFn: async (data: any) => await patch(getUrlForModel(model, data.id), data),
         onSuccess: (response) => {
             message.success('Updated Successfully');
@@ -155,7 +151,14 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                         label="Short Description"
                         name="short_desc"
                     >
-                        <TextArea />
+                        <TextArea  />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Description"
+                        name="description"
+                    >
+                        <TextArea  rows={4} />
                     </Form.Item>
 
                     <Form.Item name="content" label="Content">
@@ -175,7 +178,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                     <br />
 
                     <Form.Item
-                        label="Image"
+                        label="Author Image"
                         name="author_image"
                         valuePropName="fileList"
                         getValueFromEvent={normFile}
@@ -186,7 +189,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                     </Form.Item>
                     <br />
                     <Form.Item
-                        label="Image"
+                        label="Blog Image"
                         name="blog_image"
                         valuePropName="fileList"
                         getValueFromEvent={normFile}

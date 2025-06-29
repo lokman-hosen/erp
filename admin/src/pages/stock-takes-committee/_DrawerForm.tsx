@@ -1,13 +1,15 @@
 /* eslint-disable */
-import { UploadOutlined } from "@ant-design/icons";
-import { useMutation } from "@tanstack/react-query";
-import { Button, Drawer, Form, Input, Select, Switch, Upload, message } from 'antd';
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Button, DatePicker, Drawer, Form, Input, Select, message } from 'antd';
 import TextArea from "antd/es/input/TextArea";
-import { Option } from "antd/es/mentions";
+import dayjs from "dayjs";
 import { useEffect } from "react";
 import 'react-quill/dist/quill.snow.css';
-import { patch, post } from "~/services/api/api";
-import { API_FILE_UPLOAD, getUrlForModel } from "~/services/api/endpoints";
+import { get, patch, post } from "~/services/api/api";
+import { getUrlForModel } from "~/services/api/endpoints";
+
+const StockTakes = "StockTakes";
+// const Supplier = "Supplier";
 
 
 // @ts-ignore
@@ -15,6 +17,30 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
 
     const [form] = Form.useForm();
 
+    const {
+        data: StockTakesData,
+    } = useQuery({
+        queryKey: ["get-all-stock-takes-data"],
+        queryFn: () => get(getUrlForModel(StockTakes)),
+        staleTime: 0,
+        select: (data) => {
+            return data?.data ?? []
+        }
+    });
+    // const {
+    //     data: supplierData,
+
+    // } = useQuery({
+    //     queryKey: ["get-all", Supplier],
+    //     queryFn: () => get(getUrlForModel(Supplier)),
+    //     staleTime: 0,
+    //     select: (data) => {
+    //         return data?.data ?? []
+    //     }
+    // });
+
+    // console.log("location data, ", supplierData)
+    console.log("InventoryData data, ", StockTakesData)
 
 
 
@@ -43,13 +69,10 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
     });
 
     const onFinish = async (formValues: any) => {
-
-        if (formValues?.profile_image) {
-            const img_url = formValues?.profile_image[0]?.response?.url ?? formValues?.profile_image[0]?.thumbUrl;
-            formValues.profile_image = img_url;
+        // return console.log("formvalues", formValues)
+        if (formValues?.member_id) {
+            formValues.member_id = Number(formValues.member_id)
         }
-
-
         if (isEditing) {
             updateData.mutate({
                 ...formValues,
@@ -70,12 +93,8 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
     useEffect(() => {
         if (editedItem) {
             const val = {
-                name: editedItem?.name,
-                email: editedItem?.email,
-                phone: editedItem?.phone,
-                status: editedItem?.status,
-                address: editedItem?.address,
-                contact_person: editedItem?.contact_person,
+                stock_take_id: editedItem.stock_take_id,
+                member_id: editedItem.member_id,
             };
             form.setFieldsValue(val);
         } else {
@@ -108,64 +127,30 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
+                    <Form.Item label="Stock Takes" name="stock_take_id">
+                        <Select placeholder="Select Status" showSearch>
+                            {
+                                StockTakesData?.map((data, index) => (
+                                    <Select.Option key={index} value={data?.id}>{data?.type}</Select.Option>
+                                ))
+                            }
 
-                    <Form.Item
-                        label="Name"
-                        name="name"
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        label="Email"
-                        name="email"
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Phone"
-                        name="phone"
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        label="Contact Person"
-                        name="contact_person"
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        label="Address"
-                        name="address"
-                    >
-                        <TextArea />
-                    </Form.Item>
-                    <Form.Item
-                        name="status"
-                        label="Status"
-                        rules={[
-                            { required: true, message: 'Please select the status.' },
-                        ]}
-                    >
-                        <Select placeholder="Select status">
-                            <Option value="Active">Active</Option>
-                            <Option value="Inactive">Inactive</Option>
-                            {/* Add more statuses as needed */}
+                            {/* <Select.Option value="Pending">Pending</Select.Option>
+                            <Select.Option value="Approved">Approved</Select.Option>
+                            <Select.Option value="Rejected">Rejected</Select.Option> */}
                         </Select>
                     </Form.Item>
-                   
-                    {/* <Form.Item
-                        label="Address"
-                        name="address"
+
+
+                    <Form.Item
+                        label="Member Id"
+                        name="member_id"
                     >
-                        <TextArea />
-                    </Form.Item> */}
+                        <Input type="number" />
+                    </Form.Item>
 
                     <br />
 
-                    
-
-                  
                     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                         <Button type="primary" htmlType="submit" loading={updateData.isLoading}>
                             Save
