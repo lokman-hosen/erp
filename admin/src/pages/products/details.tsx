@@ -1,163 +1,128 @@
-/* eslint-disable */
-
-import { EditOutlined } from '@ant-design/icons';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
-  Button,
   Card,
   Descriptions,
-  Divider,
   Image,
-  Space,
-  Spin,
   Tag,
   Typography,
+  Spin,
+  Space,
+  Divider,
+  Row,
+  Col
 } from 'antd';
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { get } from '~/services/api/api';
-import { API_CRUD } from '~/services/api/endpoints';
-import DrawerForm from './_DrawerForm';
-const { Title } = Typography;
+import { get, post } from '~/services/api/api';
+import { API_CRUD_FIND_WHERE, getUrlForModel } from '~/services/api/endpoints';
+const model = 'Product'
+const { Title, Text, Paragraph } = Typography;
 
-const ProductDetail = () => {
-  const drawerTitle = 'Update Product';
-  const model = 'Product';
-
-  const BASE_URL = '/students';
-  const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-  const [editedItem, setEditedItem] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [trigger, setTrigger] = useState(0);
-
-  const { id } = useParams(); // read id parameter from the url
+const ProductDetailsPage = () => {
+  const { id } = useParams();
 
   const {
     isLoading,
     isError,
-    error,
-    data: details,
+    data: product,
     refetch,
-    isSuccess,
   } = useQuery({
-    queryKey: [`product-details-${id}`],
-    queryFn: () => get(`${API_CRUD}/${id}?model=Product`),
+    queryKey: [`get-${model}-price-list`],
+    queryFn: async () =>
+      await post(`${API_CRUD_FIND_WHERE}?model=${model}`, {
+        where: {
+          id: Number(id)
+        },
+        refetchOnWindowFocus: false,
+      }),
+    select(data) {
+      return data?.data[0] ?? [];
+    },
   });
 
-  // console.log(details);
+  console.log("product>>>", product)
 
-  if (isLoading || !isSuccess || details === undefined) {
-    return <Spin />;
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Spin size="large" />
+      </div>
+    );
   }
 
-  const onClickEdit = (record: any) => {
-    setIsEditing(true);
-    setEditedItem(record);
-    setOpen(true);
-  };
+  if (isError || !product) {
+    return <div>Error loading product details</div>;
+  }
 
-  const showDrawer = () => {
-    setOpen(true);
-    setIsEditing(false);
-    setEditedItem(null);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-    // refetch()
-  };
-
-  const onSubmitSuccess = (isEditing: boolean) => {
-    setTrigger((trigger) => trigger + 1);
-    if (isEditing) {
-      setOpen(false);
-      setIsEditing(false);
-      setEditedItem(null);
-      refetch();
-    } else {
-      setOpen(false);
-      setIsEditing(false);
-      setEditedItem(null);
-      refetch();
-    }
-  };
+  // Destructure with optional chaining
+  const {
+    name,
+    description,
+    price,
+    stock_quantity,
+    stock_status,
+    sku,
+    barcode,
+    weight,
+    featured_image,
+    is_featured,
+    status,
+    label,
+    collection_tag
+  } = product || {};
 
   return (
-    <>
-      <DrawerForm
-        title={drawerTitle}
-        onClose={onClose}
-        open={open}
-        model={model}
-        isEditing={isEditing}
-        editedItem={editedItem}
-        onSubmitSuccess={onSubmitSuccess}
-      />
-      <Space wrap style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Title level={2}>{details?.data?.name} </Title>
-      </Space>
-      <Card bordered={true} style={{ width: '100%' }}>
-        <Space wrap style={{ display: 'flex', justifyContent: 'end' }}>
-          <Button
-            type="primary"
-            onClick={() => onClickEdit(details?.data)}
-            icon={<EditOutlined />}
-          >
-            Edit
-          </Button>
-        </Space>
-        <Divider>
-          <Image width={200} src={details?.data?.featured_image}></Image>
-        </Divider>
-        <Descriptions>
-          <Descriptions.Item label="name">{details?.data?.name}</Descriptions.Item>
+    <div style={{ padding: '24px' }}>
+      <Card>
+        <Row gutter={[24, 24]}>
+          {/* Product Image */}
+          <Col xs={24} md={8}>
+            <Image
+              src={featured_image}
+              alt={name}
+              style={{ width: '100%', borderRadius: '8px' }}
+              fallback="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+            />
+          </Col>
 
-          <Descriptions.Item label="Permalink">
-            {details?.data?.permalink}
-          </Descriptions.Item>
-          <Descriptions.Item label="Description">
-            {details?.data?.description}
-          </Descriptions.Item>
-          <Descriptions.Item label="content">{details?.data?.content}</Descriptions.Item>
-          <Descriptions.Item label="SKU">{details?.data?.sku}</Descriptions.Item>
-          <Descriptions.Item label="Price">{details?.data?.price}</Descriptions.Item>
-          <Descriptions.Item label="Discount">
-            {details?.data?.discount_id}
-          </Descriptions.Item>
-          <Descriptions.Item label="Stock Status">
-            {details?.data?.stock_status}
-          </Descriptions.Item>
-          <Descriptions.Item label="Stock Quantity">
-            {details?.data?.stock_quantity}
-          </Descriptions.Item>
-          <Descriptions.Item label="Weight">{details?.data?.weight}</Descriptions.Item>
-          <Descriptions.Item label="Length">{details?.data?.length}</Descriptions.Item>
-          <Descriptions.Item label="Wide">{details?.data?.wide}</Descriptions.Item>
-          <Descriptions.Item label="Height">{details?.data?.height}</Descriptions.Item>
-          <Descriptions.Item label="Status">{details?.data?.status}</Descriptions.Item>
-          <Descriptions.Item label="Store Id">
-            {details?.data?.store_id}
-          </Descriptions.Item>
-          <Descriptions.Item label="Is Featured">
-            {details?.data?.is_featured ? (
-              <Tag color="green">Yes</Tag>
-            ) : (
-              <Tag color="red">No</Tag>
-            )}
-          </Descriptions.Item>
-          <Descriptions.Item label="Category">
-            {details?.data?.category_id}
-          </Descriptions.Item>
-          <Descriptions.Item label="Brand">{details?.data?.brand_id}</Descriptions.Item>
-          <Descriptions.Item label="Collection Tag">
-            {details?.data?.collection_tag}
-          </Descriptions.Item>
-          <Descriptions.Item label="Label">{details?.data?.label}</Descriptions.Item>
-        </Descriptions>
+          {/* Product Details */}
+          <Col xs={24} md={16}>
+            <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+              <Title level={2}>{name}</Title>
+
+              {label && <Tag color="blue">{label}</Tag>}
+              {is_featured && <Tag color="gold">Featured</Tag>}
+              {collection_tag && <Tag>{collection_tag}</Tag>}
+              {status && <Tag color={status === 'active' ? 'green' : 'red'}>{status}</Tag>}
+
+              <Title level={4} style={{ marginTop: '16px' }}>
+                ${price?.toFixed(2)}
+              </Title>
+
+              <Descriptions bordered column={1}>
+                <Descriptions.Item label="Stock Quantity">{stock_quantity}</Descriptions.Item>
+                <Descriptions.Item label="Stock Status">
+                  <Tag color={stock_status === 'in_stock' ? 'green' : 'red'}>
+                    {stock_status?.replace('_', ' ')}
+                  </Tag>
+                </Descriptions.Item>
+                <Descriptions.Item label="SKU">{sku || 'N/A'}</Descriptions.Item>
+                <Descriptions.Item label="Barcode">{barcode || 'N/A'}</Descriptions.Item>
+                <Descriptions.Item label="Weight">{weight ? `${weight} kg` : 'N/A'}</Descriptions.Item>
+              </Descriptions>
+
+              <Divider />
+
+              <Title level={4}>Description</Title>
+              <Paragraph>
+                {description || 'No description available'}
+              </Paragraph>
+            </Space>
+          </Col>
+        </Row>
       </Card>
-    </>
+    </div>
   );
 };
 
-export default ProductDetail;
+export default ProductDetailsPage;
