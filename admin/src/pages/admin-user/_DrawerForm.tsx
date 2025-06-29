@@ -1,11 +1,20 @@
 /* eslint-disable */
 import { UploadOutlined } from "@ant-design/icons";
 import { useMutation } from "@tanstack/react-query";
-import { Button, Drawer, Form, Input, Upload, message } from 'antd';
+import { Button, Drawer, Form, Input, Select, Upload, message } from 'antd';
 import { useEffect } from "react";
 import 'react-quill/dist/quill.snow.css';
 import { patch, post } from "~/services/api/api";
 import { API_FILE_UPLOAD, getUrlForModel } from "~/services/api/endpoints";
+
+const timezones = [
+    "Asia/Dhaka",        // Bangladesh
+    "Asia/Kolkata",      // India
+    "Europe/London",     // UK
+    "America/New_York",  // Eastern Time (US)
+    "Asia/Tokyo",        // Japan
+    "Australia/Sydney"   // Australia
+];
 
 
 // @ts-ignore
@@ -46,7 +55,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
             formValues.profile_photo = img_url;
         }
 
-        return console.log("formvalues", formValues.profile_photo)
+        // return console.log("formvalues", formValues.profile_photo)
 
         if (isEditing) {
             updateData.mutate({
@@ -73,6 +82,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                 email: editedItem?.email,
                 phone: editedItem?.phone,
                 password: editedItem?.password,
+                timezone: editedItem?.timezone,
                 profile_photo: [
                     {
                         uid: '-1',
@@ -143,6 +153,19 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                         name="phone"
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item label="Timezone" name="timezone">
+                        <Select placeholder="Select Status" showSearch>
+                            {
+                                timezones?.map((data, index) => (
+                                    <Select.Option value={data}>{data}</Select.Option>
+                                ))
+                            }
+
+                            {/* <Select.Option value="Pending">Pending</Select.Option>
+                            <Select.Option value="Approved">Approved</Select.Option>
+                            <Select.Option value="Rejected">Rejected</Select.Option> */}
+                        </Select>
                     </Form.Item>
 
                     <br />

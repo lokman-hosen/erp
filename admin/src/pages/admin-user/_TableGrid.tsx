@@ -65,6 +65,10 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
             dataIndex: 'phone'
         },
         {
+            title: 'Timezone',
+            dataIndex: 'timezone'
+        },
+        {
             title: 'Actions',
             render: (record: any) => {
                 // console.log(record)
