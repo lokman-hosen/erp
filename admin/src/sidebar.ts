@@ -31,10 +31,6 @@ export default [
     label: 'Newsletter',
     key: '/newsletter',
   },
-  // {
-  //   label: 'Static Page',
-  //   key: '/static-page',
-  // },
   {
     label: 'Page',
     key: '/page',
@@ -57,10 +53,7 @@ export default [
     label: 'Products',
     key: '/products',
   },
-  {
-    label: 'Approved Price',
-    key: '/approved-price',
-  },
+
   {
     label: 'Supplier',
     key: '/supplier',
@@ -68,56 +61,82 @@ export default [
 
   // Inventory
   {
-    label: 'Inventory Item',
-    key: '/inventory-item',
+    label: 'Inventory',
+    children: [
+      {
+        label: 'Inventory Item',
+        key: '/inventory-item',
+      },
+      {
+        label: 'Inventory Update',
+        key: '/inventory-update',
+      },
+      {
+        label: 'Inventory Movement',
+        key: '/inventory-movement',
+      },
+      {
+        label: 'Approved Price',
+        key: '/approved-price',
+      },
+    ],
   },
-  {
-    label: 'Inventory Update',
-    key: '/inventory-update',
-  },
-  {
-    label: 'Inventory Movement',
-    key: '/inventory-movement',
-  },
+
   {
     label: 'Stock Valuation',
-    key: '/stock-valuation',
+    children: [
+      {
+        label: 'Stock Valuation',
+        key: '/stock-valuation',
+      },
+      {
+        label: 'Stock Location',
+        key: '/stock-location',
+      },
+      {
+        label: 'Stock Takes',
+        key: '/stock-takes',
+      },
+      {
+        label: 'Stock Take Details',
+        key: '/stock-take-details',
+      },
+      {
+        label: 'Stock Take Committee',
+        key: '/stock-committee',
+      },
+    ],
   },
-  {
-    label: 'Stock Location',
-    key: '/stock-location',
-  },
-  {
-    label: 'Stock Takes',
-    key: '/stock-takes',
-  },
-  {
-    label: 'Stock Take Details',
-    key: '/stock-take-details',
-  },
-  {
-    label: 'Stock Take Committee',
-    key: '/stock-committee',
-  },
+
 
   // Logistics
   {
-    label: 'Good Receipt',
-    key: '/good-receipt',
-  },
-  {
-    label: 'Goods Return',
-    key: '/goods-return',
+    label: 'Goods',
+    children: [
+      {
+        label: 'Good Receipt',
+        key: '/good-receipt',
+      },
+      {
+        label: 'Goods Return',
+        key: '/goods-return',
+      },
+    ],
   },
 
   // Inspection
   {
-    label: 'Inspection Report',
-    key: '/inspection-report',
-  },
-  {
-    label: 'Inspection Committee',
-    key: '/committee',
+    label: 'Inspection',
+    children: [
+      {
+        label: 'Inspection Report',
+        key: '/inspection-report',
+      },
+      {
+        label: 'Inspection Committee',
+        key: '/committee',
+      },
+    ],
   },
 
   // Miscellaneous
@@ -129,22 +148,5 @@ export default [
     label: 'Disposal',
     key: '/disposal',
   },
-
-  /*
-  {
-    label: 'Client',
-    key: '/client-menu',
-    children: [
-      {
-        label: 'All Client',
-        key: '/client',
-      },
-      {
-        label: 'Add new',
-        key: '/client/create',
-      },
-    ],
-  }
-  */
 ];
 

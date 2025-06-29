@@ -88,11 +88,11 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
                     </Space>
 
                     <Space>
-                        <Link to={`/testimonial/details/${record.id}`}>
+                        {/* <Link to={`/testimonial/details/${record.id}`}>
                             <Button type="primary" ghost>
                                 <EyeOutlined />
                             </Button>
-                        </Link>
+                        </Link> */}
                     </Space>
                 </>
             },

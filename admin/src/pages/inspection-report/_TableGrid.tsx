@@ -107,11 +107,11 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
                     >
                         <Button danger type={'link'}><DeleteOutlined /></Button>
                     </Popconfirm>
-                    <Link to={`/blog/details/${record.id}`}>
+                    {/* <Link to={`/blog/details/${record.id}`}>
                         <Button type="primary" ghost>
                             <EyeOutlined />
                         </Button>
-                    </Link>
+                    </Link> */}
                 </Space>
             },
         },
