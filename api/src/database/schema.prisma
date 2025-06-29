@@ -216,38 +216,6 @@ model Blog {
 
 // Inventory related schema
 
-model GoodReceipt {
-  id                Int                @id @default(autoincrement())
-  grn_number        String
-  purchase_order_id Int
-  receipt_date      DateTime
-  status            ReceiptStatus
-  created_by        Int
-  remarks           String?
-  return_status     Boolean
-  InspectionReport  InspectionReport[]
-  GoodsReturn       GoodsReturn[]
-}
-
-model InspectionReport {
-  id                      Int                 @id @default(autoincrement())
-  good_receipt_id         Int
-  inspection_date         DateTime
-  inspection_committee_id Int
-  approval_status         ApprovalStatus
-  comments                String?
-  GoodReceipt             GoodReceipt         @relation(fields: [good_receipt_id], references: [id])
-  InspectionCommittee     InspectionCommittee @relation(fields: [inspection_committee_id], references: [id])
-}
-
-model InspectionCommittee {
-  id               Int                @id @default(autoincrement())
-  name             String
-  created_by       Int
-  valid_until      DateTime
-  InspectionReport InspectionReport[]
-}
-
 model Supplier {
   id             Int            @id @default(autoincrement())
   name           String
@@ -261,6 +229,19 @@ model Supplier {
   GoodsReturn    GoodsReturn[]
 }
 
+model GoodReceipt {
+  id                Int                @id @default(autoincrement())
+  grn_number        String
+  purchase_order_id Int
+  receipt_date      DateTime
+  status            ReceiptStatus
+  created_by        Int
+  remarks           String?
+  return_status     Boolean
+  InspectionReport  InspectionReport[]
+  GoodsReturn       GoodsReturn[]
+}
+
 model GoodsReturn {
   id              Int         @id @default(autoincrement())
   good_receipt_id Int
@@ -269,6 +250,34 @@ model GoodsReturn {
   supplier_id     Int
   GoodReceipt     GoodReceipt @relation(fields: [good_receipt_id], references: [id])
   Supplier        Supplier    @relation(fields: [supplier_id], references: [id], onDelete: Cascade)
+}
+
+model InspectionCommittee {
+  id               Int                @id @default(autoincrement())
+  name             String
+  created_by       Int
+  valid_until      DateTime
+  InspectionReport InspectionReport[]
+}
+
+model InspectionReport {
+  id                      Int                 @id @default(autoincrement())
+  good_receipt_id         Int
+  inspection_date         DateTime
+  inspection_committee_id Int
+  approval_status         ApprovalStatus
+  comments                String?
+  GoodReceipt             GoodReceipt         @relation(fields: [good_receipt_id], references: [id])
+  InspectionCommittee     InspectionCommittee @relation(fields: [inspection_committee_id], references: [id])
+}
+
+model StockLocation {
+  id                    Int                 @id @default(autoincrement())
+  name                  String
+  type                  LocationType
+  status                LocationStatus
+  InventoryMovementFrom InventoryMovement[] @relation("FromLocation")
+  InventoryMovementTo   InventoryMovement[] @relation("ToLocation")
 }
 
 model InventoryItem {
@@ -291,15 +300,6 @@ model InventoryItem {
   Disposal               Disposal[]
   InventoryUpdate        InventoryUpdate[]
   StockTakeDetail        StockTakeDetail[]
-}
-
-model StockLocation {
-  id                    Int                 @id @default(autoincrement())
-  name                  String
-  type                  LocationType
-  status                LocationStatus
-  InventoryMovementFrom InventoryMovement[] @relation("FromLocation")
-  InventoryMovementTo   InventoryMovement[] @relation("ToLocation")
 }
 
 model InventoryMovement {
