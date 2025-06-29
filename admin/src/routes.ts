@@ -32,8 +32,10 @@ const GoodReceipt = lazy(() => import('./pages/good-receipt'));
 const InspectionReport = lazy(() => import('./pages/inspection-report'));
 const GoodsReturn = lazy(() => import('./pages/goods-return'));
 const InventoryMovement = lazy(() => import('./pages/inventory-movement'));
+const InventoryMovementDetails = lazy(() => import('./pages/inventory-movement/details'));
 const ApprovedPriceList = lazy(() => import('./pages/approved-price'));
 const StockValuation = lazy(() => import('./pages/stock-valuation'));
+const StockValuationDetails = lazy(() => import('./pages/stock-valuation/details'));
 const Disposal = lazy(() => import('./pages/disposal'));
 const StockTakeDetails = lazy(() => import('./pages/stock-takes-details'));
 const StockDetails = lazy(() => import('./pages/stock-takes-details/details'));
@@ -71,8 +73,10 @@ const routes = [
   { path: '/goods-return', element: GoodsReturn },
   { path: '/inspection-report', element: InspectionReport },
   { path: '/inventory-movement', element: InventoryMovement },
+  { path: '/inventory-movement/details/:id', element: InventoryMovementDetails },
   { path: '/approved-price', element: ApprovedPriceList },
   { path: '/stock-valuation', element: StockValuation },
+  { path: '/stock-valuation/details/:id', element: StockValuationDetails },
   { path: '/disposal', element: Disposal },
   { path: '/stock-take-details', element: StockTakeDetails },
   { path: '/stock-take-details/details/:id', element: StockDetails },
