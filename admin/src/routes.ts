@@ -36,6 +36,7 @@ const ApprovedPriceList = lazy(() => import('./pages/approved-price'));
 const StockValuation = lazy(() => import('./pages/stock-valuation'));
 const Disposal = lazy(() => import('./pages/disposal'));
 const StockTakeDetails = lazy(() => import('./pages/stock-takes-details'));
+const StockDetails = lazy(() => import('./pages/stock-takes-details/details'));
 const StockTakeCommittee = lazy(() => import('./pages/stock-takes-committee'));
 const InventoryUpdate = lazy(() => import('./pages/inventory-update'));
 const Favorite = lazy(() => import('./pages/favorite'));
@@ -74,6 +75,7 @@ const routes = [
   { path: '/stock-valuation', element: StockValuation },
   { path: '/disposal', element: Disposal },
   { path: '/stock-take-details', element: StockTakeDetails },
+  { path: '/stock-take-details/details/:id', element: StockDetails },
   { path: '/stock-committee', element: StockTakeCommittee },
   { path: '/inventory-update', element: InventoryUpdate },
   { path: '/favorite', element: Favorite },
