@@ -1,11 +1,11 @@
 /* eslint-disable */
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button, Checkbox, Drawer, Form, Input, Select, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Option } from "antd/es/mentions";
 import React from "react";
-import { patch, post, put } from "~/services/api/api";
+import { get, patch, post, put } from "~/services/api/api";
 import { getUrlForModel } from "~/services/api/endpoints";
 
 // @ts-ignore
@@ -13,8 +13,24 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
 
     const [form] = Form.useForm();
 
-    const createData = useMutation({
-        mutationFn: async (data) => await post(getUrlForModel(model), data?.data),
+
+    const {
+        data: pageData,
+        refetch,
+    } = useQuery({
+        queryKey: ["KEY+ fetch Page"],
+        queryFn: () => get(getUrlForModel("Page")),
+        staleTime: 0,
+        select: (data) => {
+            return data?.data ?? []
+        }
+    });
+
+    console.log("pagedata>>>", pageData)
+
+
+    const createData:any = useMutation({
+        mutationFn: async (data:any) => await post(getUrlForModel(model), data?.data),
         onSuccess: (response) => {
             message.success('Saved Successfully');
             form.resetFields();
@@ -25,7 +41,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
         }
     });
 
-    const updateData = useMutation({
+    const updateData:any = useMutation({
         mutationFn: async (data: any) => await patch(getUrlForModel(model, data.id), data),
         onSuccess: (response) => {
             message.success('Updated Successfully');
@@ -38,13 +54,10 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
     });
 
     const onFinish = async (formValues: any) => {
-        if (formValues.sort_order !== undefined && formValues.sort_order !== null) {
-            formValues.sort_order = Number(formValues.sort_order)
+        if (formValues.page_id !== undefined && formValues.page_id !== null) {
+            formValues.page_id = Number(formValues.page_id)
         }
-        if (isEditing) {
-            if (formValues.sort_order !== undefined && formValues.sort_order !== null) {
-                formValues.sort_order = Number(formValues.sort_order)
-            }
+        if (isEditing) {            
             updateData.mutate({
                 ...formValues,
                 id: editedItem.id
@@ -90,6 +103,19 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
+                    <Form.Item label="Page" name="page_id">
+                        <Select placeholder="Select Status" showSearch>
+                            {
+                                pageData?.map((data, index) => (
+                                    <Select.Option key={index} value={data?.id}>{data?.name}</Select.Option>
+                                ))
+                            }
+
+                            {/* <Select.Option value="Pending">Pending</Select.Option>
+                            <Select.Option value="Approved">Approved</Select.Option>
+                            <Select.Option value="Rejected">Rejected</Select.Option> */}
+                        </Select>
+                    </Form.Item>
 
                     <Form.Item
                         label="Question"

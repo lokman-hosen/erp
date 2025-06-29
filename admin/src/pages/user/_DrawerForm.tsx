@@ -169,18 +169,11 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                     >
                         <TextArea />
                     </Form.Item>
-                    <Form.Item
-                        label="Address"
-                        name="address"
-                    >
-                        <TextArea />
-                    </Form.Item>
-
                     <br />
 
                     <Form.Item
                         name="profile_image"
-                        label="Cover Image"
+                        label="Profile Image"
                         rules={[{ required: false, message: 'Required' }]}
                         valuePropName="fileList"
                         getValueFromEvent={normFile}

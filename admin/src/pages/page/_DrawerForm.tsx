@@ -144,7 +144,7 @@ export default function DrawerForm({ title, model, onClose, open, onSubmitSucces
                     </Form.Item>
                     <Form.Item
                         name="profile_image"
-                        label="Cover Image"
+                        label="Image"
                         rules={[{ required: false, message: 'Required' }]}
                         valuePropName="fileList"
                     // getValueFromEvent={normFile}

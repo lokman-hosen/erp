@@ -2,26 +2,35 @@
 
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Button, Popconfirm, Space, Table, Tag, message } from "antd";
-import React, { useEffect } from "react";
-import { deleteApi, get } from "~/services/api/api";
-import { getUrlForModel } from "~/services/api/endpoints";
+import { Button, Popconfirm, Space, Table, message } from "antd";
+import { useEffect } from "react";
+import { deleteApi, post } from "~/services/api/api";
+import { API_CRUD_FIND_WHERE, getUrlForModel } from "~/services/api/endpoints";
 
 // @ts-ignore
 export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
     const KEY = `all-${model}`;
-
     const {
         isLoading,
         isError,
-        error,
         data: fetchData,
         refetch,
     } = useQuery({
-        queryKey: [KEY],
-        queryFn: () => get(getUrlForModel(model)),
-        staleTime: 0,
+        queryKey: [`get-${KEY}-list`],
+        queryFn: async () =>
+            await post(`${API_CRUD_FIND_WHERE}?model=${model}`, {
+                include: {
+                    Page: true,
+                },
+                refetchOnWindowFocus: false,
+            }),
+        select(data) {
+            return data?.data ?? [];
+        },
     });
+
+    console.log("fetchdata", fetchData)
+
 
     useEffect(() => {
         if (trigger) {
@@ -46,6 +55,11 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
     }
 
     const columns = [
+        {
+            title: 'Page',
+            dataIndex: 'page',
+            render: (_, record)=><>{record?.Page?.name}</>
+        },
         {
             title: 'Question',
             dataIndex: 'question'
@@ -91,6 +105,6 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
             rowKey="id"
             loading={isLoading}
             columns={columns}
-            dataSource={fetchData?.data} />
+            dataSource={fetchData} />
     );
 }
