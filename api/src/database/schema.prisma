@@ -97,6 +97,7 @@ model Favorite {
   partner_id   Int?
   care_home_id Int
   date         DateTime @default(now())
+  User         User?    @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map(name: "favorites")
 }
@@ -150,18 +151,19 @@ model Product {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
   name          String?
-  email         String?   @unique @db.VarChar(200)
-  phone         String?   @unique @db.VarChar(200)
+  email         String?    @unique @db.VarChar(200)
+  phone         String?    @unique @db.VarChar(200)
   password      String
-  status        String?   @db.VarChar(200)
+  status        String?    @db.VarChar(200)
   profile_image String?
   private_notes String?
-  is_verified   Boolean   @default(false)
+  is_verified   Boolean    @default(false)
   address       String?
   description   String?
   Address       Address[]
+  Favorite      Favorite[]
 
   @@map(name: "users")
 }

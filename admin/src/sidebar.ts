@@ -47,6 +47,10 @@ export default [
     label: 'Testimonial',
     key: '/testimonials',
   },
+  {
+    label: 'Favorite',
+    key: '/favorite',
+  },
 
   // Products
   {
