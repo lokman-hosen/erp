@@ -1,128 +1,217 @@
-/* eslint-disable */
-
-import { EditOutlined } from '@ant-design/icons';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {
-  Button,
   Card,
-  Image,
-  Space,
+  Descriptions,
+  Tag,
+  Typography,
   Spin,
-  Typography
+  Space,
+  Divider,
+  Row,
+  Col,
+  Tabs,
+  Table,
+  Empty,
+  Button
 } from 'antd';
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { get } from '~/services/api/api';
-import { API_CRUD } from '~/services/api/endpoints';
-import DrawerForm from "./_DrawerForm";
-const { Title } = Typography;
+import {
+  MailOutlined,
+  PhoneOutlined,
+  EnvironmentOutlined,
+  ReloadOutlined
+} from '@ant-design/icons';
+import { post } from '~/services/api/api';
+import { API_CRUD_FIND_WHERE } from '~/services/api/endpoints';
 
 
-const BlogDetails = () => {
-  const { Meta } = Card;
-  const drawerTitle = 'Update Blog';
+const { Title, Text, Paragraph } = Typography;
+const { TabPane } = Tabs;
 
-  const model = 'Blog';
-  const [open, setOpen] = useState(false);
-  const [editedItem, setEditedItem] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [trigger, setTrigger] = useState(0);
+const SupplierDetailsPage = () => {
+  const { id } = useParams();
+  const model = 'Supplier';
 
-  const BASE_URL = '/blog';
-  const navigate = useNavigate();
-
-  const { id } = useParams(); // read id parameter from the url
-
+  // Fetch supplier data
   const {
     isLoading,
     isError,
-    error,
-    data: details,
+    data: supplier,
     refetch,
-    isSuccess
   } = useQuery({
-    queryKey: [`blog-details-${id}`],
-    queryFn: () => get(`${API_CRUD}/${id}?model=Blog`),
+    queryKey: [`get-${model}-details`, id],
+    queryFn: async () =>
+      await post(`${API_CRUD_FIND_WHERE}?model=${model}`, {
+        where: {
+          id: Number(id)
+        },
+        include: {
+          GoodsReturn: true
+        }
+      }),
+    select(data) {
+      return data?.data[0] ?? null;
+    },
+    refetchOnWindowFocus: false,
   });
 
+  // // Fetch related goods returns
+  // const { data: goodsReturns } = useQuery({
+  //   queryKey: ['supplier-goods-returns', id],
+  //   queryFn: async () =>
+  //     await post(`${API_CRUD_FIND_WHERE}?model=goodsReturns`, {
+  //       where: {
+  //         supplier_id: Number(id)
+  //       },
+  //       include: {
+  //         GoodReceipt: true
+  //       }
+  //     }),
+  //   select(data) {
+  //     return data?.data ?? [];
+  //   },
+  //   enabled: !!supplier,
+  // });
 
-  if (isLoading || !isSuccess || details === undefined) {
-    return <Spin />
+
+  console.log("supplier data", supplier)
+
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Spin size="large" />
+      </div>
+    );
   }
 
-
-
-  const onClickEdit = (record: any) => {
-    setIsEditing(true);
-    setEditedItem(record);
-    setOpen(true);
+  if (isError || !supplier) {
+    return (
+      <Card>
+        <Empty description="Failed to load supplier data" />
+      </Card>
+    );
   }
 
+  // Destructure with optional chaining
+  const {
+    name,
+    contact_person,
+    phone,
+    email,
+    address,
+    status,
+    created_at,
+    updated_at,
+    GoodsReturn
+  } = supplier || {};
 
-  const showDrawer = () => {
-    setOpen(true);
-    setIsEditing(false);
-    setEditedItem(null);
-  };
+  // Columns for goods returns table
+  const goodsReturnColumns = [
+    {
+      title: 'GRN Number',
+      dataIndex: "good_receipt_id",
+      render: (record)=><>{record}</>,
+    },
+    {
+      title: 'Return Date',
+      dataIndex: 'return_date',
+      key: 'return_date',
+      render: (date) => new Date(date).toLocaleDateString(),
+    },
 
-  const onClose = () => {
-    setOpen(false);
-  };
-
-  const onSubmitSuccess = (isEditing: boolean) => {
-    setTrigger(trigger => trigger + 1)
-    if (isEditing) {
-      setOpen(false);
-      setIsEditing(false);
-      setEditedItem(null);
-      refetch()
-    } else {
-      setOpen(false);
-      setIsEditing(false);
-      setEditedItem(null);
-      refetch()
-    }
-  }
+    {
+      title: 'Reason',
+      dataIndex: 'reason',
+      key: 'reason',
+      ellipsis: true,
+    },
+    {
+      title: 'Status',
+      dataIndex: ['GoodReceipt', 'status'],
+      key: 'status',
+      render: (status) => (
+        <Tag color={status === 'completed' ? 'green' : 'orange'}>
+          {status?.toUpperCase()}
+        </Tag>
+      ),
+    },
+  ];
 
   return (
-    <>
-      <DrawerForm
-        title={drawerTitle}
-        onClose={onClose}
-        open={open}
-        model={model}
-        isEditing={isEditing}
-        editedItem={editedItem}
-        onSubmitSuccess={onSubmitSuccess}
-      />
-      <Space wrap style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Title level={2}>Blog Details</Title>
-        <Button type="primary" onClick={() => onClickEdit(details?.data)}  icon={<EditOutlined />} >Edit</Button>
-      </Space>
-      <Card bordered={true} style={{ width: "100%" }}>
-        <Space wrap style={{ display: 'flex', alignItems: "start" }}>
-          <Image
-            style={{ borderRadius: "50%" }}
-            width={100}
-            src={details?.data?.author_image}
-          />
-          <h3>{details?.data?.author_name}</h3>
-        </Space>
-        <br />
-        <Card
-          bordered={false}
-          style={{ width: "100%" }}
-          cover={<img alt="example" src={details?.data?.image} style={{ maxWidth: "500px", maxHeight: "500px" }} />}
-        >
-          {/* <Meta title={details?.data?.title} description={details?.data?.content} /> */}
-          <Meta title={details?.data?.title} description={<div
-            dangerouslySetInnerHTML={{ __html: details?.data?.content }}
-          />} />
-        </Card>
-      </Card>
+    <div style={{ padding: '24px' }}>
+      <Card
+        title={
+          <Space>
+            <Title level={4} style={{ margin: 0 }}>Supplier Details</Title>
+            <Button
+              icon={<ReloadOutlined />}
+              onClick={() => refetch()}
+              size="small"
+            />
+          </Space>
+        }
+      >
+        <Row gutter={[24, 24]}>
+          <Col span={24}>
+            <Descriptions bordered column={{ xs: 1, sm: 2 }}>
+              <Descriptions.Item label="Supplier Name">
+                <Text strong>{name}</Text>
+              </Descriptions.Item>
+              <Descriptions.Item label="Status">
+                <Tag color={status === 'active' ? 'green' : 'red'}>
+                  {status?.toUpperCase()}
+                </Tag>
+              </Descriptions.Item>
+              <Descriptions.Item label="Contact Person">
+                {contact_person}
+              </Descriptions.Item>
+              <Descriptions.Item label="Phone">
+                <Space>
+                  <PhoneOutlined />
+                  <Text copyable>{phone}</Text>
+                </Space>
+              </Descriptions.Item>
+              <Descriptions.Item label="Email">
+                <Space>
+                  <MailOutlined />
+                  <Text copyable>{email}</Text>
+                </Space>
+              </Descriptions.Item>
+              <Descriptions.Item label="Address">
+                <Space>
+                  <EnvironmentOutlined />
+                  {address}
+                </Space>
+              </Descriptions.Item>
+              <Descriptions.Item label="Created At">
+                {new Date(created_at).toLocaleString()}
+              </Descriptions.Item>
+              <Descriptions.Item label="Updated At">
+                {new Date(updated_at).toLocaleString()}
+              </Descriptions.Item>
+            </Descriptions>
+          </Col>
 
-    </>
+          <Col span={24}>
+            <Tabs defaultActiveKey="goodsReturns">
+              <TabPane tab="Goods Returns" key="goodsReturns">
+                <Table
+                  columns={goodsReturnColumns}
+                  dataSource={supplier?.GoodsReturn || GoodsReturn || []}
+                  rowKey="id"
+                  pagination={{ pageSize: 5 }}
+                  locale={{
+                    emptyText: <Empty description="No goods returns found" />
+                  }}
+                />
+              </TabPane>
+            </Tabs>
+          </Col>
+        </Row>
+      </Card>
+    </div>
   );
 };
 
-export default BlogDetails;
+export default SupplierDetailsPage;

@@ -20,6 +20,7 @@ const testimonials = lazy(() => import('./pages/Testimonials'));
 const testimonialDetail = lazy(() => import('./pages/Testimonials/details'));
 const page = lazy(() => import('./pages/page'));
 const Supplier = lazy(() => import('./pages/supplier'));
+const SupplierDetails = lazy(() => import('./pages/supplier/details'));
 const InventoryItem = lazy(() => import('./pages/inventory-item'));
 const StockLocation = lazy(() => import('./pages/stock-location'));
 const StockTakes = lazy(() => import('./pages/stock-takes'));
@@ -56,6 +57,7 @@ const routes = [
   { path: '/testimonial/details/:id', element: testimonialDetail },
   { path: '/page', element: page },
   { path: '/supplier', element: Supplier },
+  { path: '/supplier/details/:id', element: SupplierDetails },
   { path: '/inventory-item', element: InventoryItem },
   { path: '/stock-location', element: StockLocation },
   { path: '/stock-takes', element: StockTakes },

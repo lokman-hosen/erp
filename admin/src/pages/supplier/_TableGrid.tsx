@@ -76,8 +76,8 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
             title: 'Status',
             dataIndex: 'status',
             render: (status) => (
-                <Tag color={status === 'Active'  ? 'green' : 'red'}>
-                    {status  == 'Active' ? 'Active' : 'Inactive'}
+                <Tag color={status === 'Active' ? 'green' : 'red'}>
+                    {status == 'Active' ? 'Active' : 'Inactive'}
                 </Tag>
             ),
         },
@@ -97,7 +97,7 @@ export default function _TableGrid({ model, trigger, onClickEdit, ...props }) {
                     >
                         <Button danger type={'link'}><DeleteOutlined /></Button>
                     </Popconfirm>
-                    <Link to={`/user/details/${record.id}`}>
+                    <Link to={`/supplier/details/${record.id}`}>
                         <Button type="primary" ghost>
                             <EyeOutlined />
                         </Button>
