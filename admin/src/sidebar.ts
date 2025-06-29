@@ -68,6 +68,10 @@ export default [
     key: '/inventory-item',
   },
   {
+    label: 'Inventory Update',
+    key: '/inventory-update',
+  },
+  {
     label: 'Inventory Movement',
     key: '/inventory-movement',
   },
